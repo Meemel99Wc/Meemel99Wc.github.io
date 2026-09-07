@@ -358,7 +358,7 @@ video{width:100%;background:#000;display:block}
    and drop the animation. */
 #nyan{
   position:absolute; inset:0; z-index:0;
-  background:#0a1030 url('nyan.gif') repeat;
+  background:#0a1030 url('public/nyan.gif') repeat;
   background-size:160px auto;
   image-rendering:pixelated;
   animation:nyanscroll 4s linear infinite;
@@ -387,7 +387,7 @@ video{width:100%;background:#000;display:block}
   color:var(--cyan); text-shadow:0 0 10px rgba(34,230,255,.55), 2px 2px 0 #000;
 }
 
-/* The bouncers. Built by JS, five of them. */
+/* The bouncers. Built by JS, CAT_COUNT of them. */
 #cats{position:absolute; inset:0; z-index:2}
 .cat{
   position:absolute; top:0; left:0;
@@ -679,7 +679,7 @@ video{width:100%;background:#000;display:block}
         <button class="b" id="vid-stop" style="min-width:80px">Pysäytä</button>
         <button class="b" id="vid-mute" style="min-width:80px">Mykistä</button>
       </div>
-      <p class="muted" style="margin:0">Keep <code>20dollar.mp4</code> next to this file or the poster frame shows instead.</p>
+      <p class="muted" style="margin:0">Pidä <code>public/20dollar.mp4</code> paikallaan tai näkyviin jää pelkkä juliste.</p>
     </div>
     <div class="status"><span id="vid-status">Pysäytetty</span><span>MPEG-4</span></div>
   </section>
@@ -921,17 +921,56 @@ data-open-attribuutilla.
 #site .skills dd{margin:0;font-size:16px;color:#e6e1d9}
 
 /* ---------- work ---------- */
-#site .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-#site .card{
-  background:var(--panel); border:1px solid var(--line);
-  padding:18px 18px 20px; display:flex; flex-direction:column; gap:10px;
+/* Screenshot slot. If the image is missing the figure falls back to a
+   hatched panel with the domain on it, so a half-filled portfolio still
+   looks deliberate instead of broken. */
+#site .shot{
+  position:relative; aspect-ratio:16/10; margin:0 0 14px;
+  background:#0d0d16; border:1px solid var(--line); overflow:hidden;
 }
-#site .card:hover{border-color:rgba(34,211,238,.45)}
-#site .card figure{margin:0;background:#0d0d16;border:1px solid var(--line);padding:10px}
-#site .card svg{display:block;width:100%;height:auto}
-#site .card h3{font-size:17px}
-#site .card .meta{font-family:var(--mono);font-size:11px;color:var(--cool);letter-spacing:.05em}
-#site .card p{font-size:14.5px;color:#cfc9c1}
+#site .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+#site .shot.empty img{display:none}
+#site .shot.empty::after{
+  content:attr(data-label);
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:#4f4a5c;
+  background:repeating-linear-gradient(135deg,#0d0d16 0 10px,#101019 10px 20px);
+}
+
+#site .clients{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+#site .client{background:var(--panel);border:1px solid var(--line);padding:16px 16px 20px}
+#site .client:hover{border-color:rgba(34,211,238,.45)}
+#site .client h3{font-size:18px;margin-bottom:2px}
+#site .client .dom{
+  display:block;margin-bottom:10px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--cool);
+}
+#site .client p{font-size:14.5px;color:#cfc9c1}
+#site .client ul{margin:10px 0 15px;padding-left:16px;font-size:14px;color:#b9b3ab}
+#site .client li{margin-bottom:3px}
+#site .client .go{
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  text-decoration:none;border-bottom:1px solid var(--hot);padding-bottom:2px;
+}
+#site .client .go:hover{color:var(--hot)}
+
+/* Technical projects carry no imagery at all. The 1px grid gap over a
+   line-coloured background draws hairline rules without any borders. */
+#site .subhead{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dim);margin:44px 0 16px;
+}
+#site .tech{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+}
+#site .tech article{background:var(--bg);padding:16px 16px 18px}
+#site .tech h3{font-size:15px;margin-bottom:3px}
+#site .tech .meta{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  color:var(--dim);margin-bottom:8px;
+}
+#site .tech p{font-size:14px;color:#b9b3ab}
 
 /* ---------- about ---------- */
 #site .about{display:grid;grid-template-columns:150px 1fr;gap:26px;align-items:start}
@@ -980,9 +1019,10 @@ data-open-attribuutilla.
   <div class="hero">
     <div>
       <p class="eyebrow">Tampere &middot; C++ / Python / Java</p>
-      <h1>Työkaluja sinne,<br>missä <em>dokumentaatiota</em><br>ei ole.</h1>
-      <p class="lede">Takaisinmallinnusta, matalan tason työkaluja ja automaatiota.
-        Rakennan ohjelmia, jotka pysyvät pystyssä silloinkin kun kohde muuttuu alta.</p>
+      <h1>Koodausta,<br>ylläpitoa,<br><em>automatisointia</em>.</h1>
+      <p class="lede">Verkkosivuja, chatbotteja ja hallintapaneeleita asiakkaille.
+        Takaisinmallinnusta ja matalan tason työkaluja omaksi ilokseni. Rakennan
+        ohjelmia, jotka pysyvät pystyssä silloinkin kun kohde muuttuu alta.</p>
       <div class="cta">
         <a class="btn solid" href="#tyot">Katso työt</a>
         <a class="btn" href="#yhteys">Ota yhteyttä</a>
@@ -1011,145 +1051,139 @@ data-open-attribuutilla.
       <dt>Järjestelmät</dt><dd>Windowsin prosessi- ja muistirajapinnat, osoitinketjujen selvittäminen, rakenteiden kartoitus.</dd>
       <dt>Verkko</dt><dd>Binääriprotokollien takaisinmallinnus, välityspalvelimet, pakettien tarkastelu.</dd>
       <dt>Konenäkö</dt><dd>OpenCV, oman aineiston keruu ja annotointi, tunnistimien koulutus ja käyttöönotto.</dd>
+      <dt>Web</dt><dd>Verkkosivut alusta loppuun, oma WordPress-teemakehitys, kolmannen osapuolen integraatiot (mm. Timma), hallintapaneelit ja AI-chatbotit.</dd>
       <dt>Grafiikka</dt><dd>Unityn renderöintiputki, varjostimien kirjoittaminen.</dd>
     </dl>
   </section>
 
   <!-- ---------------- TYÖT ---------------- -->
   <section id="tyot">
-    <div class="head"><h2>Valikoidut työt</h2><div class="rule"></div><span class="eyebrow">02</span></div>
-    <div class="cards">
+    <div class="head"><h2>Työt</h2><div class="rule"></div><span class="eyebrow">02</span></div>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke="#22d3ee" stroke-width="2">
-          <circle cx="34" cy="48" r="15"/><circle cx="104" cy="26" r="15"/>
-          <circle cx="104" cy="72" r="15"/><circle cx="182" cy="48" r="15"/>
-          <path d="M49 43l40-12M49 55l40 12M119 30l50 12M119 68l50-12" stroke="#ff2e88"/>
-          <path d="M164 40l6 3-6 3" stroke="#ff2e88"/>
-        </svg></figure>
+    <p class="subhead" style="margin-top:0">Asiakastyöt</p>
+    <div class="clients">
+
+      <article class="client">
+        <!-- Drop a screenshot at public/kuvat/nettisiili.png and it appears here. -->
+        <figure class="shot" data-label="nettisiili.fi">
+          <img src="public/kuvat/nettisiili.png" alt="Nettisiili — etusivu" loading="lazy">
+        </figure>
+        <h3>Nettisiili</h3>
+        <!-- Swap the href to https://nettisiili.fi once the domain is pointed. -->
+        <span class="dom"><a class="go" style="border:none;padding:0"
+          href="https://nettisiili-preview-2026.web.app/">nettisiili.fi</a></span>
+        <p>Oma digitoimisto suomalaisille pienyrityksille: AI-chatbot, nopeat
+           verkkosivut ja hallintapaneeli samasta paketista.</p>
+        <ul>
+          <li>Konsepti, brändi ja sivuston suunnittelu</li>
+          <li>Koko toteutus, kaksikielisenä (FI/EN)</li>
+          <li>Palvelupaketointi ja hinnoittelu</li>
+        </ul>
+        <a class="go" href="https://nettisiili-preview-2026.web.app/">Avaa sivusto &rarr;</a>
+      </article>
+
+      <article class="client">
+        <figure class="shot" data-label="fastglass.online">
+          <img src="public/kuvat/fastglass.png" alt="FastGlass — etusivu" loading="lazy">
+        </figure>
+        <h3>FastGlass</h3>
+        <span class="dom">fastglass.online &middot; autolasi, Tampere</span>
+        <p>Verkkosivut, AI-chatbot ja hallintapaneeli tuulilasiliikkeelle.
+           Tarjouspyyntö lähtee rekisterinumerosta, ja vakuutustiedot kulkevat
+           samassa lomakkeessa läpi.</p>
+        <ul>
+          <li>Sivuston suunnittelu ja toteutus</li>
+          <li>AI-chatbot asiakaskysymyksiin</li>
+          <li>Hallintapaneeli tarjouspyyntöjen käsittelyyn</li>
+          <li>Monivaiheinen lomake, FI/EN, paikallinen hakukoneoptimointi</li>
+        </ul>
+        <a class="go" href="https://fastglass.online/">Avaa sivusto &rarr;</a>
+      </article>
+
+      <article class="client">
+        <figure class="shot" data-label="thebestonebarbershop.fi">
+          <img src="public/kuvat/thebestone.png" alt="The Best One Barbershop — etusivu" loading="lazy">
+        </figure>
+        <h3>The Best One Barbershop</h3>
+        <span class="dom">thebestonebarbershop.fi &middot; parturi, Tampere</span>
+        <p>Koko sivusto alusta loppuun. Videotaustainen etusivu, galleria ja
+           ajanvaraus, jotta asiakas pääsee kolmella klikkauksella tuoliin.</p>
+        <ul>
+          <li>Oma WordPress-teema aiemman tilalle</li>
+          <li>Timma-ajanvarauksen integrointi</li>
+          <li>Galleria, tiimiosio ja Google-arvostelut</li>
+          <li>Kaksikielisyys (FI/EN) ja suorituskyvyn siivous</li>
+        </ul>
+        <a class="go" href="https://thebestonebarbershop.fi/">Avaa sivusto &rarr;</a>
+      </article>
+
+    </div>
+
+    <p class="subhead">Tekniset projektit</p>
+    <div class="tech">
+
+      <article>
         <h3>OSRS-automaatiosarja</h3>
-        <p class="meta">Java · 2019–2022</p>
-        <p>Viisi pitkäkestoista skriptiä yhteisen tilakoneen päällä. Rakennettu käymään
-           valvomatta tuntikausia, joten virheistä toipuminen oli tärkeämpää kuin onnellinen polku.</p>
+        <p class="meta">Java &middot; 2019&ndash;2022</p>
+        <p>Viisi pitkäkestoista skriptiä yhteisen tilakoneen päällä. Rakennettu
+           käymään valvomatta tuntikausia, joten virheistä toipuminen ratkaisi.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke="#22d3ee" stroke-width="1.6">
-          <g opacity=".55">
-            <path d="M20 20h200M20 40h200M20 60h200M20 80h200"/>
-            <path d="M60 12v76M100 12v76M140 12v76M180 12v76"/>
-          </g>
-          <rect x="100" y="32" width="40" height="16" stroke="#ff2e88" stroke-width="2.4"/>
-          <path d="M120 48v20h44" stroke="#ff2e88" stroke-width="2.4"/>
-          <path d="M158 64l8 4-8 4" stroke="#ff2e88" stroke-width="2.4"/>
-        </svg></figure>
+      <article>
         <h3>Muistityökalut</h3>
-        <p class="meta">C++ · 2020–2024</p>
-        <p>Prosessimuistin luku ja kirjoitus useassa nimikkeessä. Rakenteiden kartoitus ja
-           osoitinketjujen ratkominen käsin, uudelleen jokaisen päivityksen jälkeen.</p>
+        <p class="meta">C++ &middot; 2020&ndash;2024</p>
+        <p>Prosessimuistin luku ja kirjoitus useassa nimikkeessä. Rakenteiden
+           kartoitus ja osoitinketjujen ratkominen käsin, uudelleen jokaisen
+           päivityksen jälkeen.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke="#22d3ee" stroke-width="2">
-          <rect x="14" y="34" width="40" height="28"/><rect x="186" y="34" width="40" height="28"/>
-          <rect x="96" y="26" width="48" height="44" stroke="#ff2e88"/>
-          <path d="M54 48h42M144 48h42"/>
-          <rect x="66" y="43" width="10" height="10" fill="#22d3ee" stroke="none"/>
-          <rect x="158" y="43" width="10" height="10" fill="#22d3ee" stroke="none"/>
-          <path d="M110 40h20M110 48h20M110 56h12" stroke="#ff2e88" stroke-width="1.6"/>
-        </svg></figure>
+      <article>
         <h3>Growtopia MITM-välityspalvelin</h3>
-        <p class="meta">C++ · 2021</p>
-        <p>Välityspalvelin pelin ja palvelimen väliin, dokumentoimattoman binääriprotokollan
-           purkuun. Viive piti pysyä olemattomana tai asiakasohjelma huomasi.</p>
+        <p class="meta">C++ &middot; 2021</p>
+        <p>Välityspalvelin pelin ja palvelimen väliin, dokumentoimattoman
+           binääriprotokollan purkuun. Viive piti pysyä olemattomana.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke="#22d3ee" stroke-width="1.6">
-          <g opacity=".5"><path d="M20 20h200M20 44h200M20 68h200M60 12v76M110 12v76M160 12v76"/></g>
-          <path d="M36 76l24-30 34 18 32-38 40 12 30-24" stroke="#ff2e88" stroke-width="2.4"/>
-          <circle cx="36" cy="76" r="4" fill="#ff2e88" stroke="none"/>
-          <circle cx="196" cy="14" r="4" fill="#ff2e88" stroke="none"/>
-        </svg></figure>
+      <article>
         <h3>Pixel Worlds -botti</h3>
-        <p class="meta">C++ · 2022</p>
-        <p>Tehty pelin uudelleenjulkaisun aikaan ja annettu yhteisölle heidän Discordissaan.
-           Sain siitä porttikiellon, mikä oli heiltä oikea ratkaisu.</p>
+        <p class="meta">C++ &middot; 2022</p>
+        <p>Tehty pelin uudelleenjulkaisun aikaan ja annettu yhteisölle heidän
+           Discordissaan. Sain siitä porttikiellon, mikä oli heiltä oikea ratkaisu.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke-width="2">
-          <path d="M74 78V44l16-14h22l16 14v34z" stroke="#22d3ee" fill="none"/>
-          <circle cx="101" cy="22" r="9" stroke="#22d3ee" fill="none"/>
-          <path d="M140 78V44l16-14h22l16 14v34z" stroke="#ff2e88" fill="rgba(255,46,136,.16)"/>
-          <circle cx="167" cy="22" r="9" stroke="#ff2e88" fill="rgba(255,46,136,.16)"/>
-          <path d="M20 30h34M20 48h26M20 66h34" stroke="#22d3ee" opacity=".5"/>
-        </svg></figure>
+      <article>
         <h3>Unity-varjostintyö</h3>
-        <p class="meta">C++, HLSL · 2022</p>
-        <p>Oma varjostin Unityn renderöintiputkeen. Menetelmä on nykyään julkisesti
-           dokumentoitu ja aikansa elänyt; mukana koska putken ymmärrys siirtyi eteenpäin.</p>
+        <p class="meta">C++, HLSL &middot; 2022</p>
+        <p>Oma varjostin Unityn renderöintiputkeen. Menetelmä on nykyään
+           julkisesti dokumentoitu ja aikansa elänyt.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke-width="2">
-          <path d="M44 62c8-22 26-30 40-18s6 32-12 34-32-4-28-16z" stroke="#22d3ee" opacity=".7"/>
-          <path d="M146 40c14-16 34-10 36 6s-16 28-30 22-16-18-6-28z" stroke="#22d3ee" opacity=".7"/>
-          <rect x="36" y="34" width="76" height="52" stroke="#ff2e88"/>
-          <rect x="138" y="20" width="66" height="56" stroke="#ff2e88"/>
-          <rect x="36" y="24" width="30" height="10" fill="#ff2e88" stroke="none"/>
-          <rect x="138" y="10" width="30" height="10" fill="#ff2e88" stroke="none"/>
-        </svg></figure>
+      <article>
         <h3>Konenäköön perustuvat botit</h3>
-        <p class="meta">Python, OpenCV · 2022–2024</p>
-        <p>Ruudulta ohjautuva automaatio. Alkoi värisegmentoinnista ja päätyi tunnistimeen,
-           joka koulutettiin itse kuvatusta ja annotoidusta aineistosta.</p>
+        <p class="meta">Python, OpenCV &middot; 2022&ndash;2024</p>
+        <p>Ruudulta ohjautuva automaatio. Alkoi värisegmentoinnista ja päätyi
+           tunnistimeen, joka koulutettiin itse kuvatusta aineistosta.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke-width="2">
-          <path d="M20 84h200" stroke="#22d3ee" opacity=".4"/>
-          <g stroke="#22d3ee"><path d="M40 24v52M40 34h0"/><rect x="33" y="34" width="14" height="26" fill="#0d0d16"/></g>
-          <g stroke="#ff2e88"><path d="M76 18v58"/><rect x="69" y="30" width="14" height="32" fill="rgba(255,46,136,.2)"/></g>
-          <g stroke="#22d3ee"><path d="M112 30v46"/><rect x="105" y="40" width="14" height="24" fill="#0d0d16"/></g>
-          <g stroke="#ff2e88"><path d="M148 12v64"/><rect x="141" y="22" width="14" height="36" fill="rgba(255,46,136,.2)"/></g>
-          <g stroke="#22d3ee"><path d="M184 26v50"/><rect x="177" y="36" width="14" height="28" fill="#0d0d16"/></g>
-        </svg></figure>
+      <article>
         <h3>Takatestaus ja paperikauppa</h3>
-        <p class="meta">Python · 2023–2024</p>
-        <p>Kehikko, joka hakee markkinadataa, kirjaa sen ja ajaa strategian historian läpi
-           samaa koodipolkua pitkin kuin live-päätökset. Kirjaus osoittautui arvokkaimmaksi osaksi.</p>
+        <p class="meta">Python &middot; 2023&ndash;2024</p>
+        <p>Kehikko, joka hakee markkinadataa, kirjaa sen ja ajaa strategian
+           historian läpi samaa koodipolkua pitkin kuin live-päätökset.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke-width="2">
-          <g stroke="#22d3ee" opacity=".8">
-            <rect x="20" y="18" width="120" height="14"/><rect x="20" y="41" width="120" height="14"/>
-            <rect x="20" y="64" width="120" height="14"/>
-          </g>
-          <path d="M178 20c11 0 20 9 20 20 0 14-20 32-20 32s-20-18-20-32c0-11 9-20 20-20z" stroke="#ff2e88"/>
-          <circle cx="178" cy="40" r="7" stroke="#ff2e88"/>
-          <path d="M140 25h14M140 48h14M140 71h14" stroke="#ff2e88" stroke-width="1.6"/>
-        </svg></figure>
+      <article>
         <h3>Yritysdatan koontityökalu</h3>
-        <p class="meta">Python · 2024</p>
-        <p>Sisäinen työkalu, joka kokoaa jäsennellyt yritystiedot listaksi yhteydenottoja varten.
-           Tulos menee manuaaliseen tarkastukseen. Menetelmä pysyy talon sisällä.</p>
+        <p class="meta">Python &middot; 2024</p>
+        <p>Sisäinen työkalu, joka kokoaa jäsennellyt yritystiedot listaksi
+           yhteydenottoja varten. Menetelmä pysyy talon sisällä.</p>
       </article>
 
-      <article class="card">
-        <figure><svg viewBox="0 0 240 96" fill="none" stroke-width="2">
-          <g stroke="#22d3ee" opacity=".65" stroke-width="1.6">
-            <path d="M26 18h26M62 18h58M26 34h26M62 34h40M26 50h26M62 50h66M26 66h26M62 66h34M26 82h26M62 82h52"/>
-          </g>
-          <path d="M150 34c30 0 30 32 0 32" stroke="#ff2e88" stroke-width="2.4"/>
-          <path d="M158 60l-8 6 8 6" stroke="#ff2e88" stroke-width="2.4"/>
-          <rect x="20" y="44" width="112" height="14" stroke="#ff2e88" stroke-width="1.6"/>
-        </svg></figure>
+      <article>
         <h3>Takaisinmallinnus</h3>
-        <p class="meta">Ghidra, IDA · jatkuvaa</p>
-        <p>Staattista analyysia: kiinnostavien funktioiden paikantamista, rakenteen
-           palauttamista ja osoitinketjujen seuraamista, myös obfuskoiduista käännöksistä.</p>
+        <p class="meta">Ghidra, IDA &middot; jatkuvaa</p>
+        <p>Staattista analyysia: funktioiden paikantamista, rakenteen
+           palauttamista ja osoitinketjujen seuraamista.</p>
       </article>
 
     </div>
@@ -1161,14 +1195,10 @@ data-open-attribuutilla.
     <div class="about">
       <img src="data:image/jpeg;base64,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" alt="Kuva minusta">
       <div>
-        <p>Itseoppinut, työskentelen lähellä konetta. Kuusi vuotta työkalujen rakentamista
-           kohteita vastaan, jotka ovat elossa, dokumentoimattomia ja aktiivisesti vastahakoisia
-           tarkastelulle.</p>
-        <p>Melkein kaikki mitä olen tehnyt on alkanut samasta kysymyksestä: mitä tämä ohjelma
-           oikeasti tekee sen käyttöliittymän alla, jonka se minulle näyttää. Vastauksen
-           etsiminen on opettanut enemmän kuin mikään kurssi.</p>
-        <p>Etsin töitä, joissa saa purkaa asioita osiin: takaisinmallinnusta, työkaluja,
-           automaatiota, pelien tietoturvaa.</p>
+        <p>Itseoppinut, työskennellyt tietokoneella lapsesta pitäen. 10 vuotta sivujen, sekä työkalujen rakentamista kohteita vastaan.</p>
+        <p>Rakennan ohjelmia, jotka käyvät valvomatta ja pysyvät käynnissä. Melkein
+         kaikki työni alkaa samasta kysymyksestä: Miten saan tämän automatisoitua aikaa säästäen? Tämä kysymys on johtanut moneen opetukseen, jotka pitivät lähteä ihan pohjalta asti opettelemaan miten mikäkin tietokoneen toiminto toimii, jotka ovat opettaneet enemmän kuin mikään tutoriaali mitä olen katsonut.</p>
+        <p>Myös sama asia näkyy siinä mitä olen tehnyt eli scripti pohjaisia toimintoja toivoen, että minun ei tarvitse käyttää aikaani ns. "Turhaan".</p>
       </div>
     </div>
   </section>
@@ -1210,16 +1240,15 @@ data-open-attribuutilla.
         <div class="rowg" style="align-items:flex-start;margin-bottom:12px">
           <div style="flex:1;min-width:200px">
             <h2 style="font-size:16px;margin:0 0 2px">Mem3lz</h2>
-            <p class="muted" style="margin:0">Matalan tason työkalut, takaisinmallinnus, automaatio</p>
+            <p class="muted" style="margin:0">Verkkosivut ja chatbotit &middot; matalan tason työkalut &middot; takaisinmallinnus</p>
             <p class="muted" style="margin:0">Tampere &middot; you@example.com</p>
           </div>
         </div>
 
         <fieldset style="margin-bottom:12px"><legend>Profiili</legend>
-          <p style="margin:0">Itseoppinut ohjelmoija, joka työskentelee lähellä konetta. Kuusi vuotta
-          automaatio- ja analyysityökalujen rakentamista kohteita vastaan, jotka ovat eläviä,
-          dokumentoimattomia ja aktiivisesti vastahakoisia tarkastelulle. Kotonaan C++:ssa,
-          Pythonissa ja Javassa &mdash; ja yhtä lailla disassemblerissa silloin kun lähdekoodia ei ole.</p>
+          <p style="margin:0">Itseoppinut ohjelmoija, joka on pienestä saakka tehnyt tietokoneella. Kuusi vuotta
+          automaatio- ja analyysityökalujen rakentamista kohteita vastaan, jotka ovat aktiivisesti vastahakoisia tarkastelulle. Kotona C++:lla,
+          Pythonilla ja Javalla &mdash; ja yhtä lailla disassemblerilla silloin kun lähdekoodia ei ole.</p>
         </fieldset>
 
         <fieldset style="margin-bottom:12px"><legend>Ydinosaaminen</legend>
@@ -1229,11 +1258,27 @@ data-open-attribuutilla.
             <dt>Järjestelmät</dt><dd>Windowsin prosessi- ja muistirajapinnat, osoitinketjut, rakenteiden kartoitus</dd>
             <dt>Verkko</dt><dd>Binääriprotokollien takaisinmallinnus, välityspalvelimet, pakettien tarkastelu</dd>
             <dt>Konenäkö</dt><dd>OpenCV, aineiston keruu ja annotointi, tunnistimien koulutus ja käyttöönotto</dd>
+            <dt>Web</dt><dd>Verkkosivut alusta loppuun, WordPress-teemakehitys, kolmannen osapuolen integraatiot (mm. Timma), hallintapaneelit, AI-chatbotit</dd>
             <dt>Grafiikka</dt><dd>Unityn renderöintiputki, varjostimien kirjoittaminen</dd>
           </dl>
         </fieldset>
 
-        <fieldset style="margin-bottom:12px"><legend>Valikoidut työt</legend>
+        <fieldset style="margin-bottom:12px"><legend>Asiakastyöt</legend>
+          <p style="margin:0 0 6px"><b>Nettisiili</b> &mdash; oma digitoimisto suomalaisille
+          pienyrityksille. AI-chatbot, verkkosivut ja hallintapaneeli samasta paketista.
+          Konsepti, suunnittelu ja koko toteutus kaksikielisenä. nettisiili.fi.</p>
+
+          <p style="margin:0 0 6px"><b>FastGlass</b> (fastglass.online) &mdash; verkkosivut,
+          AI-chatbot ja hallintapaneeli tamperelaiselle autolasiliikkeelle. Monivaiheinen
+          tarjouslomake rekisterinumerolla ja vakuutustiedoilla, hallintapaneeli pyyntöjen
+          käsittelyyn, kaksikielisyys ja paikallinen hakukoneoptimointi.</p>
+
+          <p style="margin:0"><b>The Best One Barbershop</b> (thebestonebarbershop.fi) &mdash;
+          koko sivusto alusta loppuun. Oma WordPress-teema aiemman tilalle, Timma-ajanvarauksen
+          integrointi, videotaustainen etusivu, galleria ja kaksikielisyys.</p>
+        </fieldset>
+
+        <fieldset style="margin-bottom:12px"><legend>Omat projektit</legend>
           <p style="margin:0 0 6px"><b>Java</b> &mdash; Viiden pitkäkestoisen OSRS-skriptin sarja
           (Zombie Pirates, Woodcutting, Cooking, Crafting, Nightmare Zone) yhteisen tilakoneen päällä,
           suunniteltu käymään valvomatta ja toipumaan virheistä sen sijaan että pysähtyisi niihin.</p>
@@ -1324,7 +1369,7 @@ data-open-attribuutilla.
     <p>löysit kansion</p>
   </header>
 
-  <!-- The five bouncers are built by JS so the count is one constant. -->
+  <!-- The bouncers are built by JS so the count is one constant. -->
   <div id="cats"></div>
 
   <div id="toast">KULMA</div>
@@ -1498,6 +1543,8 @@ document.getElementById('reboot').onclick = () => location.reload();
    CONTENT — edit these arrays, the UI rebuilds itself
    ============================================================ */
 const SKILLS = [
+  ['Verkkosivut (HTML, CSS, JS)', 8],
+  ['WordPress-teemakehitys', 7],
   ['C++', 8],
   ['Python', 8],
   ['Java', 7],
@@ -1512,6 +1559,34 @@ document.getElementById('skills').innerHTML = SKILLS.map(([n, v]) => `
   <div class="meter">${'<i></i>'.repeat(v)}</div></div>`).join('');
 
 const WORK = [
+  { name:'Nettisiili', icon:'#i-globe', stack:'Verkkosivut, AI', year:'2025–2026', cat:'Asiakastyö',
+    blurb:'Oma digitoimisto suomalaisille pienyrityksille: AI-chatbot, nopeat verkkosivut ja hallintapaneeli samasta paketista.',
+    points:[
+      'Konsepti, brändi ja sivuston suunnittelu.',
+      'Koko toteutus kaksikielisenä (FI/EN).',
+      'Palvelupaketointi ja hinnoittelu.',
+      'nettisiili.fi — domain hankittu, julkaisu tulossa.'
+    ]},
+
+  { name:'FastGlass', icon:'#i-globe', stack:'Verkkosivut, AI, hallinta', year:'2025', cat:'Asiakastyö',
+    blurb:'Verkkosivut, AI-chatbot ja hallintapaneeli tamperelaiselle autolasiliikkeelle (fastglass.online).',
+    points:[
+      'Sivuston suunnittelu ja toteutus.',
+      'AI-chatbot vastaamaan asiakkaiden kysymyksiin.',
+      'Hallintapaneeli tarjouspyyntöjen käsittelyyn.',
+      'Monivaiheinen tarjouslomake: rekisterinumero, palvelutarve, vakuutustiedot.',
+      'Kaksikielisyys ja paikallinen hakukoneoptimointi.'
+    ]},
+
+  { name:'The Best One Barbershop', icon:'#i-globe', stack:'WordPress, JS', year:'2025–2026', cat:'Asiakastyö',
+    blurb:'Koko sivusto alusta loppuun tamperelaiselle parturille (thebestonebarbershop.fi).',
+    points:[
+      'Oma WordPress-teema aiemman tilalle.',
+      'Timma-ajanvarauksen integrointi.',
+      'Videotaustainen etusivu, galleria, tiimiosio ja Google-arvostelut.',
+      'Kaksikielisyys (FI/EN) ja suorituskyvyn siivous.'
+    ]},
+
   { name:'OSRS-automaatiosarja', icon:'#i-folder', stack:'Java', year:'2019–2022', cat:'Automaatio',
     blurb:'Viisi pitkäkestoista skriptiä Old School RuneScapeen: Zombie Pirates, Woodcutting AIO, Cooking AIO, Crafting AIO ja Nightmare Zone.',
     points:[
@@ -1762,7 +1837,7 @@ document.getElementById('back-btn').addEventListener('click', e => {
 });
 
 /* ============================================================
-   BOUNCERS — five of them, each with its own position, velocity and
+   BOUNCERS — CAT_COUNT of them, each with its own position, velocity and
    colour. Screensaver physics: constant velocity, flip the sign on
    contact with a wall.
    ============================================================ */
@@ -1790,7 +1865,7 @@ for (let i = 0; i < CAT_COUNT; i++){
   catLayer.appendChild(el);
 
   /* Spread the starting points and give each one a different heading,
-     otherwise five identical boxes travel as one. */
+     otherwise identical boxes travel as one pack. */
   const cat = {
     el, vid: el.querySelector('video'),
     x: 0, y: 0, vx: 0, vy: 0,
@@ -1874,7 +1949,7 @@ function spawnCats(){
 function playCats(){ cats.forEach(c => c.vid.play().catch(()=>{})); }
 function pauseCats(){ cats.forEach(c => c.vid.pause()); }
 
-/* Only the first one is ever audible. Five copies of the same track
+/* Only the first one is ever audible. Ten copies of the same track
    playing slightly out of phase is unlistenable. */
 document.getElementById('sound').onclick = function(){
   const lead = cats[0];
@@ -1910,6 +1985,13 @@ document.getElementById('www-reload').addEventListener('click', () => {
   const st = document.getElementById('www-status');
   st.textContent = 'Ladataan…';
   setTimeout(() => st.textContent = 'Valmis', 700);
+});
+
+/* A missing screenshot flips its figure into the hatched placeholder
+   rather than showing a broken-image icon. */
+document.querySelectorAll('#site .shot img').forEach(img => {
+  img.addEventListener('error', () => img.closest('.shot').classList.add('empty'));
+  if (img.complete && img.naturalWidth === 0) img.closest('.shot').classList.add('empty');
 });
 
 /* ============================================================
