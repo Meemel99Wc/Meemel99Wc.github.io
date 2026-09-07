@@ -347,7 +347,7 @@ video{width:100%;background:#000;display:block}
    the desktop's own <header> and <h1> elements.
    ============================================================ */
 #scene-secrets{
-  position:fixed; inset:0; z-index:20; background:#0a1030; color:#fff;
+  position:fixed; inset:0; z-index:20; background-image: url("public/nyan-cat-icegif-7.gif"); color:#fff;
   font-family:"Courier New",Courier,monospace; font-size:13px; overflow:hidden;
   --cyan:#22e6ff; --mag:#ff2f9e; --deep:#5b0038;
 }
@@ -592,7 +592,7 @@ video{width:100%;background:#000;display:block}
       <div class="tabpanel" id="p3" hidden>
         <fieldset><legend>Yhteystiedot</legend>
           <dl class="spec">
-            <dt>Sähköposti</dt><dd><a href="mailto:you@example.com">you@example.com</a></dd>
+            <dt>Sähköposti</dt><dd><a href="mailto:eemeli.laurell@gmail.com">eemeli.laurell@gmail.com</a></dd>
             <dt>GitHub</dt><dd><a href="#">github.com/nimesi</a></dd>
             <dt>Discord</dt><dd>nimesi</dd>
             <dt>Sijainti</dt><dd>Tampere, Suomi</dd>
@@ -1064,9 +1064,8 @@ data-open-attribuutilla.
     <div class="clients">
 
       <article class="client">
-        <!-- Drop a screenshot at public/kuvat/nettisiili.png and it appears here. -->
         <figure class="shot" data-label="nettisiili.fi">
-          <img src="public/kuvat/nettisiili.png" alt="Nettisiili — etusivu" loading="lazy">
+          <img src="public/Nettisiili.png" alt="Nettisiili — etusivu" loading="lazy">
         </figure>
         <h3>Nettisiili</h3>
         <!-- Swap the href to https://nettisiili.fi once the domain is pointed. -->
@@ -1084,7 +1083,7 @@ data-open-attribuutilla.
 
       <article class="client">
         <figure class="shot" data-label="fastglass.online">
-          <img src="public/kuvat/fastglass.png" alt="FastGlass — etusivu" loading="lazy">
+          <img src="public/fastglass.png" alt="FastGlass — etusivu" loading="lazy">
         </figure>
         <h3>FastGlass</h3>
         <span class="dom">fastglass.online &middot; autolasi, Tampere</span>
@@ -1102,7 +1101,7 @@ data-open-attribuutilla.
 
       <article class="client">
         <figure class="shot" data-label="thebestonebarbershop.fi">
-          <img src="public/kuvat/thebestone.png" alt="The Best One Barbershop — etusivu" loading="lazy">
+          <img src="public/thebestone.webp" alt="The Best One Barbershop — etusivu" loading="lazy">
         </figure>
         <h3>The Best One Barbershop</h3>
         <span class="dom">thebestonebarbershop.fi &middot; parturi, Tampere</span>
@@ -1195,10 +1194,14 @@ data-open-attribuutilla.
     <div class="about">
       <img src="data:image/jpeg;base64,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" alt="Kuva minusta">
       <div>
-        <p>Itseoppinut, työskennellyt tietokoneella lapsesta pitäen. 10 vuotta sivujen, sekä työkalujen rakentamista kohteita vastaan.</p>
-        <p>Rakennan ohjelmia, jotka käyvät valvomatta ja pysyvät käynnissä. Melkein
-         kaikki työni alkaa samasta kysymyksestä: Miten saan tämän automatisoitua aikaa säästäen? Tämä kysymys on johtanut moneen opetukseen, jotka pitivät lähteä ihan pohjalta asti opettelemaan miten mikäkin tietokoneen toiminto toimii, jotka ovat opettaneet enemmän kuin mikään tutoriaali mitä olen katsonut.</p>
-        <p>Myös sama asia näkyy siinä mitä olen tehnyt eli scripti pohjaisia toimintoja toivoen, että minun ei tarvitse käyttää aikaani ns. "Turhaan".</p>
+        <p>Itseoppinut, työskentelen lähellä konetta. Kuusi vuotta työkalujen rakentamista
+           kohteita vastaan, jotka ovat elossa, dokumentoimattomia ja aktiivisesti vastahakoisia
+           tarkastelulle.</p>
+        <p>Melkein kaikki mitä olen tehnyt on alkanut samasta kysymyksestä: mitä tämä ohjelma
+           oikeasti tekee sen käyttöliittymän alla, jonka se minulle näyttää. Vastauksen
+           etsiminen on opettanut enemmän kuin mikään kurssi.</p>
+        <p>Etsin töitä, joissa saa purkaa asioita osiin: takaisinmallinnusta, työkaluja,
+           automaatiota, pelien tietoturvaa.</p>
       </div>
     </div>
   </section>
@@ -1206,7 +1209,7 @@ data-open-attribuutilla.
   <!-- ---------------- YHTEYS ---------------- -->
   <section id="yhteys" class="contact" style="border-bottom:none">
     <div class="head"><h2>Ota yhteyttä</h2><div class="rule"></div><span class="eyebrow">04</span></div>
-    <a class="big" href="mailto:you@example.com">you@example.com</a>
+    <a class="big" href="mailto:eemeli.laurell@gmail.com">eemeli.laurell@gmail.com</a>
     <div class="links">
       <a href="#">GitHub</a><a href="#">Discord</a><a href="#">LinkedIn</a>
       <a href="#">Tampere, Suomi</a>
@@ -1241,14 +1244,15 @@ data-open-attribuutilla.
           <div style="flex:1;min-width:200px">
             <h2 style="font-size:16px;margin:0 0 2px">Mem3lz</h2>
             <p class="muted" style="margin:0">Verkkosivut ja chatbotit &middot; matalan tason työkalut &middot; takaisinmallinnus</p>
-            <p class="muted" style="margin:0">Tampere &middot; you@example.com</p>
+            <p class="muted" style="margin:0">Tampere &middot; eemeli.laurell@gmail.com</p>
           </div>
         </div>
 
         <fieldset style="margin-bottom:12px"><legend>Profiili</legend>
-          <p style="margin:0">Itseoppinut ohjelmoija, joka on pienestä saakka tehnyt tietokoneella. Kuusi vuotta
-          automaatio- ja analyysityökalujen rakentamista kohteita vastaan, jotka ovat aktiivisesti vastahakoisia tarkastelulle. Kotona C++:lla,
-          Pythonilla ja Javalla &mdash; ja yhtä lailla disassemblerilla silloin kun lähdekoodia ei ole.</p>
+          <p style="margin:0">Itseoppinut ohjelmoija, joka työskentelee lähellä konetta. Kuusi vuotta
+          automaatio- ja analyysityökalujen rakentamista kohteita vastaan, jotka ovat eläviä,
+          dokumentoimattomia ja aktiivisesti vastahakoisia tarkastelulle. Kotonaan C++:ssa,
+          Pythonissa ja Javassa &mdash; ja yhtä lailla disassemblerissa silloin kun lähdekoodia ei ole.</p>
         </fieldset>
 
         <fieldset style="margin-bottom:12px"><legend>Ydinosaaminen</legend>
@@ -1365,8 +1369,7 @@ data-open-attribuutilla.
   <div id="nyan"></div>
 
   <header>
-    <h1>Salaisuudet</h1>
-    <p>löysit kansion</p>
+
   </header>
 
   <!-- The bouncers are built by JS so the count is one constant. -->
