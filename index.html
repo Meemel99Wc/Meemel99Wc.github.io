@@ -745,6 +745,21 @@ video{width:100%;background:#000;display:block}
     </div>
   </section>
 
+  <!-- ---------- SHOWCASE — project showcase pages open in here,
+       inside the desktop, instead of escaping to a real new tab ---------- -->
+  <section class="win" id="win-showcase" style="left:96px;top:36px;width:840px;height:566px" role="dialog" aria-labelledby="t-showcase">
+    <header class="tbar">
+      <svg><use href="#i-globe"/></svg>
+      <span class="t" id="t-showcase">Showcase</span>
+      <button class="tbtn min" data-act="min" aria-label="Pienennä"></button>
+      <button class="tbtn max" data-act="max" aria-label="Suurenna"></button>
+      <button class="tbtn cls" data-act="cls" aria-label="Sulje"></button>
+    </header>
+    <div class="body" style="padding:0;gap:0;overflow:hidden">
+      <iframe id="showcase-frame" src="about:blank" title="Showcase" style="display:block;width:100%;height:100%;min-height:0;border:0;background:#000" loading="eager"></iframe>
+    </div>
+  </section>
+
   <div id="taskbar">
     <button id="start" aria-haspopup="true" aria-expanded="false">
       <svg><use href="#i-logo"/></svg><span>Käynnistä</span>
@@ -1393,6 +1408,20 @@ if (cup){
    Fake-browser controls. index2.html is deliberately isolated in
    an iframe so its CSS and JavaScript behave exactly as standalone.
    ------------------------------------------------------------ */
+/* ---------- SHOWCASE — opened from links inside the www iframe ---------- */
+const showcaseFrame = document.getElementById('showcase-frame');
+window.openShowcase = function (url, title) {
+  const label = title || 'Showcase';
+  document.getElementById('t-showcase').textContent = label;
+  const w = wins.get('showcase');
+  if (w) {
+    w.title = label;
+    if (w.btn) w.btn.querySelector('span').textContent = label;
+  }
+  if (showcaseFrame.getAttribute('src') !== url) showcaseFrame.src = url;
+  openWin('showcase');
+};
+
 const wwwFrame = document.getElementById('www-frame');
 
 function wwwHistory(action){

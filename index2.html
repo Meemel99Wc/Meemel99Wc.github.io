@@ -698,6 +698,23 @@ document.getElementById('theme-toggle').addEventListener('click', function(){
   try{ localStorage.setItem('mem3lz-theme', next); }catch(e){}
 });
 
+/* ---------------- Showcase links ----------------
+   On the standalone site these are plain target="_blank" links.
+   When this page is running inside the mem3lz "98 desktop" (index.html,
+   via the fake browser window), open them in that desktop's own showcase
+   window instead — otherwise a real new tab opens and takes over, and
+   the desktop illusion is gone. */
+document.querySelectorAll('.tech-link[href^="showcases/"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var embedded = window.top !== window.self && typeof window.top.openShowcase === 'function';
+    if (!embedded) return; // standalone site: let target="_blank" do its normal thing
+    e.preventDefault();
+    var card = a.closest('.tech-card');
+    var title = card ? card.querySelector('h3').textContent.trim() : 'Showcase';
+    window.top.openShowcase(a.getAttribute('href'), title);
+  });
+});
+
 /* ---------------- Screenshot fallback ---------------- */
 document.querySelectorAll('.shot img').forEach(function(img){
   img.addEventListener('error', function(){ img.closest('.shot').classList.add('empty'); });
