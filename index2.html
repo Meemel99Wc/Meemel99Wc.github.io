@@ -216,10 +216,22 @@ button{font-family:inherit}
   gap:1px;background:var(--line);border:1px solid var(--line);
   border-radius:var(--radius-card);overflow:hidden;
 }
-.tech-card{background:var(--bg);padding:16px 18px}
+.tech-card{background:var(--bg);padding:16px 18px;display:flex;flex-direction:column}
 .tech-card h3{font-size:15px;font-weight:700;margin-bottom:4px}
 .tech-card .meta{font-size:12.5px;color:var(--dim);margin-bottom:8px}
 .tech-card p{font-size:13.8px;line-height:1.55;opacity:.92}
+
+/* Read-more / repo / showcase links under a project. Hidden automatically
+   when a card has none (see the empty-state rule below), so a project with
+   no public link yet just shows no row instead of a dead strip. */
+.tech-links{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:12px}
+.tech-links:empty{display:none}
+.tech-link{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;
+}
+.tech-link:hover{text-decoration:underline}
+.tech-link svg{width:13px;height:13px;flex:none}
 
 /* ============================================================
    CONTACT PANEL
@@ -276,6 +288,7 @@ button{font-family:inherit}
   <div class="topbar-inner">
     <a class="wordmark" href="#"><span class="dot"></span>mem3lz</a>
     <div class="topbar-actions">
+      <a class="nostalgia-link" href="retro.html">prefer nostalgia? &rarr;</a>
       <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle color theme">
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -471,6 +484,18 @@ button{font-family:inherit}
         <p>Five long-running scripts sharing one state machine, built for an MMO.
            Designed to run unattended for hours and recover from errors instead of
            stopping on them.</p>
+        <div class="tech-links">
+          <!-- Repo not uploaded yet — swap this href for the real one. -->
+          <a class="tech-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <!-- No live showcase yet — swap this href once one exists. -->
+          <a class="tech-link" href="showcases/stateful-automation-framework.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            Showcase
+          </a>
+        </div>
       </article>
 
       <article class="tech-card">
@@ -479,6 +504,18 @@ button{font-family:inherit}
         <p>Read/write tools for process memory across several game titles. Manual
            structure mapping and pointer-chain resolution, redone after every update
            that moved them.</p>
+        <div class="tech-links">
+          <!-- Repo not uploaded yet — swap this href for the real one. -->
+          <a class="tech-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <!-- No live showcase yet — swap this href once one exists. -->
+          <a class="tech-link" href="showcases/process-memory-tooling.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            Showcase
+          </a>
+        </div>
       </article>
 
       <article class="tech-card">
@@ -487,6 +524,18 @@ button{font-family:inherit}
         <p>A proxy between a game client and its server, decoding an undocumented
            binary protocol recovered from captured traffic — with latency that had to
            stay unnoticeable.</p>
+        <div class="tech-links">
+          <!-- Repo not uploaded yet — swap this href for the real one. -->
+          <a class="tech-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <!-- No live showcase yet — swap this href once one exists. -->
+          <a class="tech-link" href="showcases/binary-protocol-re-mitm-proxy.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            Showcase
+          </a>
+        </div>
       </article>
 
       <article class="tech-card">
@@ -494,6 +543,18 @@ button{font-family:inherit}
         <p class="meta">C++ · 2022</p>
         <p>A bot built during a game's relaunch and shared with its community on
            Discord. Got banned for it — the right call, from their side.</p>
+        <div class="tech-links">
+          <!-- Repo not uploaded yet — swap this href for the real one. -->
+          <a class="tech-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <!-- No live showcase yet — swap this href once one exists. -->
+          <a class="tech-link" href="showcases/public-automation-tool.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            Showcase
+          </a>
+        </div>
       </article>
 
       <article class="tech-card">
@@ -501,6 +562,18 @@ button{font-family:inherit}
         <p class="meta">C++, HLSL · 2022</p>
         <p>A shader written into a game engine's rendering pipeline. The technique is
            public knowledge now, and long since patched.</p>
+        <div class="tech-links">
+          <!-- Repo not uploaded yet — swap this href for the real one. -->
+          <a class="tech-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <!-- No live showcase yet — swap this href once one exists. -->
+          <a class="tech-link" href="showcases/custom-render-pipeline-shader.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            Showcase
+          </a>
+        </div>
       </article>
 
       <article class="tech-card">
@@ -508,6 +581,18 @@ button{font-family:inherit}
         <p class="meta">Python, OpenCV · 2022–2024</p>
         <p>Screen-driven automation across two games, evolving from colour
            segmentation into a detector trained on self-captured, self-annotated data.</p>
+        <div class="tech-links">
+          <!-- Repo not uploaded yet — swap this href for the real one. -->
+          <a class="tech-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <!-- No live showcase yet — swap this href once one exists. -->
+          <a class="tech-link" href="showcases/computer-vision-automation.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            Showcase
+          </a>
+        </div>
       </article>
 
       <article class="tech-card">
@@ -515,6 +600,18 @@ button{font-family:inherit}
         <p class="meta">Python · 2023–2024</p>
         <p>Pulls market data, logs it, and replays a strategy through the exact code
            path used for live decisions.</p>
+        <div class="tech-links">
+          <!-- Repo not uploaded yet — swap this href for the real one. -->
+          <a class="tech-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <!-- No live showcase yet — swap this href once one exists. -->
+          <a class="tech-link" href="showcases/backtesting-paper-trading-framework.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            Showcase
+          </a>
+        </div>
       </article>
 
       <article class="tech-card">
@@ -547,6 +644,8 @@ button{font-family:inherit}
 
   <footer class="site-footer">
     <span>&copy; 2026 mem3lz</span>
+    <span>Hand-built HTML, CSS, and a little JS</span>
+    <a href="retro.html">prefer nostalgia? &rarr;</a>
   </footer>
 
 </main>

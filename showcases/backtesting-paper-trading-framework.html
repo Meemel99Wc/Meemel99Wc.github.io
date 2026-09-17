@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* Resolve theme before first paint so there's no light/dark flash.
+   Shares the same storage key as the main site, so the choice made
+   there carries over here. */
+(function(){
+  try{
+    var stored = localStorage.getItem('mem3lz-theme');
+    var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  }catch(e){}
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#000000">
+<title>Backtesting &amp; paper-trading framework — mem3lz</title>
+<meta name="description" content="Backtesting &amp; paper-trading framework — a project by Eemeli Laurell (mem3lz).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2322d3ee'/%3E%3Ctext x='32' y='43' font-size='32' font-family='Arial,Helvetica,sans-serif' font-weight='700' fill='%23000' text-anchor='middle'%3Em%3C/text%3E%3C/svg%3E">
+
+<!-- ============================================================
+     HOW TO EDIT THIS PAGE
+     - Swap photos: each .shot block below has a commented-out
+       <img> tag. Uncomment it and point src at your image (a file
+       next to this one, or a full URL), then delete the
+       data-label attribute on that .shot div.
+     - Edit text: the title, meta line, description paragraph and
+       the three highlight bullets are plain text in the body below
+       — just type over them.
+     - Change the GitHub / back links: search for href="#" near
+       the bottom of the body.
+     ============================================================ -->
+
+<style>
+:root{
+  --bg:#000000;
+  --panel:#0a0a0a;
+  --ink:#f4f1ea;
+  --dim:#8b8e96;
+  --line:rgba(244,241,234,.14);
+  --accent:#22d3ee;
+  --accent-ink:#00181d;
+  --radius-card:16px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#ffffff;
+  --panel:#f6f7f8;
+  --ink:#0b0d10;
+  --dim:#5b6269;
+  --line:rgba(11,13,16,.12);
+  --accent-ink:#00181d;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme]){
+    --bg:#ffffff; --panel:#f6f7f8; --ink:#0b0d10; --dim:#5b6269; --line:rgba(11,13,16,.12);
+  }
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);
+  line-height:1.5;transition:background-color .15s ease, color .15s ease;
+}
+h1,h2,h3{margin:0}
+p{margin:0}
+a{color:inherit}
+ul{margin:0;padding:0}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{font-family:inherit}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 64px}
+
+.topbar{
+  position:sticky;top:0;z-index:30;
+  background:var(--bg);border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:760px;margin:0 auto;padding:13px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-weight:700;font-size:14px;text-decoration:none;color:var(--ink);
+}
+.back-link svg{width:16px;height:16px}
+.back-link:hover{color:var(--accent)}
+.icon-btn{
+  width:34px;height:34px;flex:none;border-radius:10px;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+.icon-btn svg{width:17px;height:17px}
+.icon-btn .i-moon{display:none}
+[data-theme="light"] .icon-btn .i-sun{display:none}
+[data-theme="light"] .icon-btn .i-moon{display:block}
+
+.hero{padding:32px 0 8px}
+.eyebrow{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.02em;margin-bottom:10px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.01em;line-height:1.15;margin-bottom:8px}
+.meta{font-size:14px;color:var(--dim)}
+
+.links-row{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:18px}
+.tech-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;
+  border:1px solid var(--line);background:var(--panel);
+  padding:8px 14px;border-radius:999px;
+}
+.tech-link:hover{border-color:var(--accent)}
+.tech-link svg{width:14px;height:14px;flex:none}
+
+.gallery{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:10px;margin:28px 0;
+}
+.shot{
+  position:relative;aspect-ratio:16/10;background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;
+}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot.empty img{display:none}
+.shot.empty::after{
+  content:attr(data-label);position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;
+  font-size:12.5px;letter-spacing:.02em;color:var(--dim);
+  background:repeating-linear-gradient(135deg,var(--panel) 0 10px,var(--bg) 10px 20px);
+}
+
+.section{padding:22px 0}
+.section h2{font-size:15px;font-weight:700;margin-bottom:12px}
+.body-text{font-size:15.5px;line-height:1.7;color:var(--ink);max-width:62ch}
+
+.highlights{list-style:none;display:flex;flex-direction:column;gap:10px;max-width:62ch}
+.highlights li{
+  display:flex;gap:10px;font-size:14.5px;line-height:1.55;color:var(--ink);
+}
+.highlights li::before{
+  content:"";flex:none;width:6px;height:6px;border-radius:50%;
+  background:var(--accent);margin-top:8px;
+}
+
+.footer-nav{
+  padding:28px 0 0;margin-top:12px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
+  font-size:13px;color:var(--dim);
+}
+.footer-nav a{color:var(--accent);text-decoration:none;font-weight:600}
+.footer-nav a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="back-link" href="../index2.html#projects">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      All projects
+    </a>
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle color theme">
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">Project showcase</div>
+    <h1>Backtesting &amp; paper-trading framework</h1>
+    <p class="meta">Python · 2023–2024</p>
+
+    <div class="links-row">
+      <!-- Repo not uploaded yet — swap this href for the real one. -->
+      <a class="tech-link" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+
+  <!-- Gallery — three placeholder slots. Uncomment the <img> in each
+       .shot div and point it at your screenshot once you have one;
+       then remove that div's data-label attribute. -->
+  <div class="gallery">
+    <div class="shot empty" data-label="Add a screenshot">
+      <!-- <img src="your-image.jpg" alt="Describe this screenshot"> -->
+    </div>
+    <div class="shot empty" data-label="Add a screenshot">
+      <!-- <img src="your-image.jpg" alt="Describe this screenshot"> -->
+    </div>
+    <div class="shot empty" data-label="Add a screenshot">
+      <!-- <img src="your-image.jpg" alt="Describe this screenshot"> -->
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>About this project</h2>
+    <p class="body-text">Pulls market data, logs it, and replays a strategy through the exact code path used for live decisions.</p>
+  </div>
+
+  <div class="section">
+    <h2>Highlights</h2>
+    <ul class="highlights">
+      <li>What problem it solved — edit or delete this line.</li>
+      <li>A technical detail worth calling out — edit or delete this line.</li>
+      <li>The outcome or result — edit or delete this line.</li>
+    </ul>
+  </div>
+
+  <nav class="footer-nav">
+    <a href="../index2.html#projects">&larr; Back to all projects</a>
+    <span>mem3lz &middot; Backtesting & paper-trading framework</span>
+  </nav>
+
+</main>
+
+<script>
+document.getElementById('theme-toggle').addEventListener('click', function(){
+  var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem('mem3lz-theme', next); }catch(e){}
+});
+
+document.querySelectorAll('.shot img').forEach(function(img){
+  img.addEventListener('error', function(){ img.closest('.shot').classList.add('empty'); });
+  if (img.complete && img.naturalWidth === 0) img.closest('.shot').classList.add('empty');
+});
+</script>
+
+</body>
+</html>
