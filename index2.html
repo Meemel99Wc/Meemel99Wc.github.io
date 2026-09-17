@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* Resolve theme before first paint so there's no light/dark flash. */
+(function(){
+  try{
+    var stored = localStorage.getItem('mem3lz-theme');
+    var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  }catch(e){}
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#000000">
+<title>Eemeli Laurell — Systems programmer</title>
+<meta name="description" content="Eemeli Laurell (mem3lz) — systems programmer in Tampere, Finland. Reverse engineering, low-level tools, and web. Client work, technical projects, and contact info.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2322d3ee'/%3E%3Ctext x='32' y='43' font-size='32' font-family='Arial,Helvetica,sans-serif' font-weight='700' fill='%23000' text-anchor='middle'%3Em%3C/text%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   TOKENS — dark is the default surface; light overrides it.
+   ============================================================ */
+:root{
+  --bg:#000000;
+  --panel:#0a0a0a;
+  --ink:#f4f1ea;          /* warm off-white, not flat #fff */
+  --dim:#8b8e96;
+  --line:rgba(244,241,234,.14);
+  --accent:#22d3ee;
+  --accent-ink:#00181d;
+  --radius-card:16px;
+  --radius-avatar:18px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#ffffff;
+  --panel:#f6f7f8;
+  --ink:#0b0d10;
+  --dim:#5b6269;
+  --line:rgba(11,13,16,.12);
+  --accent-ink:#00181d;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme]){
+    --bg:#ffffff; --panel:#f6f7f8; --ink:#0b0d10; --dim:#5b6269; --line:rgba(11,13,16,.12);
+  }
+}
+
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.5;
+  transition:background-color .15s ease, color .15s ease;
+}
+h1,h2,h3{margin:0}
+p{margin:0}
+a{color:inherit}
+ul,dl{margin:0;padding:0}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{font-family:inherit}
+
+.wrap{max-width:700px;margin:0 auto;padding:0 20px 64px}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:30;
+  background:var(--bg);border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:700px;margin:0 auto;padding:13px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.wordmark{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:800;font-size:16px;letter-spacing:-.01em;text-decoration:none;color:var(--ink);
+}
+.wordmark .dot{
+  width:8px;height:8px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 8px var(--accent);flex:none;
+}
+.topbar-actions{display:flex;align-items:center;gap:16px}
+.nostalgia-link{
+  font-size:13.5px;color:var(--dim);text-decoration:none;white-space:nowrap;
+}
+.nostalgia-link:hover{color:var(--accent)}
+.icon-btn{
+  width:34px;height:34px;flex:none;border-radius:10px;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+.icon-btn svg{width:17px;height:17px}
+.icon-btn .i-moon{display:none}
+[data-theme="light"] .icon-btn .i-sun{display:none}
+[data-theme="light"] .icon-btn .i-moon{display:block}
+
+/* ============================================================
+   PROFILE HEADER
+   ============================================================ */
+.profile{
+  display:flex;gap:18px;align-items:flex-start;padding:26px 0 6px;
+}
+.avatar{
+  width:84px;height:84px;flex:none;border-radius:var(--radius-avatar);
+  object-fit:cover;border:1px solid var(--line);background:var(--panel);
+}
+.profile-text{flex:1;min-width:0}
+.name{font-size:25px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.handle{font-size:14.5px;color:var(--dim);margin:2px 0 10px}
+.tagline{font-size:15.5px;line-height:1.5;max-width:46ch;margin:0 0 12px}
+.meta-row{
+  list-style:none;display:flex;flex-wrap:wrap;gap:8px 18px;
+  font-size:13.5px;color:var(--dim);
+}
+.meta-row li{display:flex;align-items:center;gap:6px}
+.meta-row a{color:inherit;text-decoration:none}
+.meta-row a:hover{color:var(--accent)}
+.meta-row svg{width:15px;height:15px;flex:none;opacity:.85}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+.tabs{
+  position:sticky;top:59px;z-index:20;
+  display:flex;gap:2px;margin-top:18px;border-bottom:1px solid var(--line);
+  background:var(--bg);overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{
+  position:relative;background:none;border:none;color:var(--dim);
+  font-size:15px;font-weight:600;padding:14px 18px;cursor:pointer;white-space:nowrap;
+}
+.tabs button:hover{color:var(--ink);background:rgba(127,127,127,.08)}
+.tabs button[aria-selected="true"]{color:var(--ink)}
+.tab-indicator{
+  position:absolute;bottom:-1px;height:3px;left:0;width:0;
+  background:var(--accent);border-radius:3px 3px 0 0;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1), width .25s cubic-bezier(.2,.8,.2,1);
+}
+
+.panel{padding:26px 0 8px}
+.panel[hidden]{display:none}
+
+/* ============================================================
+   PROFILE PANEL — bio + competencies
+   ============================================================ */
+.bio{font-size:15.5px;line-height:1.65;max-width:60ch;margin-bottom:30px}
+.comp-group{margin-bottom:22px}
+.comp-group:last-child{margin-bottom:0}
+.comp-group h3{font-size:14px;font-weight:700;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  display:inline-flex;align-items:center;padding:6px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);
+  font-size:13px;font-weight:500;white-space:nowrap;
+}
+
+/* ============================================================
+   WORK PANEL — client cards
+   ============================================================ */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius-card);
+  overflow:hidden;background:var(--panel);
+  transition:border-color .15s ease;
+}
+.card:hover{border-color:var(--accent)}
+.shot{position:relative;aspect-ratio:16/10;background:var(--panel);overflow:hidden;border-bottom:1px solid var(--line)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.shot.empty img{display:none}
+.shot.empty::after{
+  content:attr(data-label);position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;letter-spacing:.04em;color:var(--dim);
+  background:repeating-linear-gradient(135deg,var(--panel) 0 10px,var(--bg) 10px 20px);
+}
+.card-body{padding:16px 18px 18px}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.card-head h3{font-size:17px;font-weight:700}
+.domain{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:13px;color:var(--accent);text-decoration:none;
+}
+.domain:hover{text-decoration:underline}
+.domain svg{width:12px;height:12px}
+.card-body p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
+.card-sub{font-size:12.5px;color:var(--dim);margin:-4px 0 8px}
+.card-body details{margin-top:2px}
+.card-body summary{
+  cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:4px;
+  font-size:13px;font-weight:600;color:var(--accent);
+}
+.card-body summary::-webkit-details-marker{display:none}
+.card-body summary .chev{width:13px;height:13px;transition:transform .15s ease}
+.card-body details[open] summary .chev{transform:rotate(90deg)}
+.card-body details ul{margin:10px 0 0;padding-left:18px;font-size:13.5px;line-height:1.6;color:var(--dim)}
+.card-body details li{margin-bottom:4px}
+
+/* ============================================================
+   PROJECTS PANEL — dense technical grid
+   ============================================================ */
+.tech-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--radius-card);overflow:hidden;
+}
+.tech-card{background:var(--bg);padding:16px 18px}
+.tech-card h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.tech-card .meta{font-size:12.5px;color:var(--dim);margin-bottom:8px}
+.tech-card p{font-size:13.8px;line-height:1.55;opacity:.92}
+
+/* ============================================================
+   CONTACT PANEL
+   ============================================================ */
+.big-email{
+  font-size:clamp(22px,4.4vw,32px);font-weight:800;letter-spacing:-.01em;
+  text-decoration:none;display:inline-block;
+  border-bottom:2px solid var(--accent);padding-bottom:4px;
+}
+.big-email:hover{color:var(--accent)}
+.contact-facts{
+  margin-top:28px;display:grid;grid-template-columns:130px 1fr;
+  gap:12px 16px;font-size:14.5px;max-width:52ch;
+}
+.contact-facts dt{color:var(--dim);font-weight:600}
+.contact-facts dd{margin:0}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer{
+  margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;
+  font-size:12.5px;color:var(--dim);
+}
+.site-footer a{color:inherit;text-decoration:none}
+.site-footer a:hover{color:var(--accent)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:560px){
+  .avatar{width:64px;height:64px;border-radius:14px}
+  .name{font-size:21px}
+  .tabs{top:57px}
+  .tabs button{padding:12px 14px;font-size:14px}
+  .topbar-inner{padding:11px 16px}
+  .wrap{padding:0 16px 50px}
+  .contact-facts{grid-template-columns:1fr;gap:4px 0}
+  .contact-facts dt{margin-top:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .tab-indicator{transition:none}
+  .card{transition:none}
+  .card-body summary .chev{transition:none}
+  body{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="wordmark" href="#"><span class="dot"></span>mem3lz</a>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle color theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="profile">
+    <img class="avatar" src="__AVATAR_B64__" alt="Photo of Eemeli Laurell" width="84" height="84">
+    <div class="profile-text">
+      <h1 class="name">Eemeli Laurell</h1>
+      <p class="handle">@mem3lz</p>
+      <p class="tagline">Systems programmer — reverse engineering, low-level tools, web.</p>
+      <ul class="meta-row">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.4-7-12a7 7 0 1 1 14 0c0 4.6-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Tampere, Finland
+        </li>
+        <li>
+          <a href="mailto:eemeli.laurell@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            eemeli.laurell@gmail.com
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" data-tab="profile" aria-controls="tab-profile" aria-selected="true">Profile</button>
+    <button role="tab" data-tab="work" aria-controls="tab-work" aria-selected="false" tabindex="-1">Work</button>
+    <button role="tab" data-tab="projects" aria-controls="tab-projects" aria-selected="false" tabindex="-1">Projects</button>
+    <button role="tab" data-tab="contact" aria-controls="tab-contact" aria-selected="false" tabindex="-1">Contact</button>
+    <span class="tab-indicator" aria-hidden="true"></span>
+  </nav>
+
+  <!-- ---------------- PROFILE ---------------- -->
+  <section id="tab-profile" class="panel" role="tabpanel" aria-label="Profile">
+    <p class="bio">Self-taught, and most comfortable working close to the machine. Six
+      years building automation and analysis tools against targets that are live,
+      undocumented, and actively resistant to being looked at — at home in C++, Python,
+      and Java, and just as much in a disassembler when there's no source to read.
+      Looking for work built around taking things apart: reverse engineering, tooling,
+      automation, game security.</p>
+
+    <div class="competencies">
+      <div class="comp-group">
+        <h3>Languages</h3>
+        <div class="chips">
+          <span class="chip">C++</span><span class="chip">Python</span><span class="chip">Java</span>
+        </div>
+      </div>
+      <div class="comp-group">
+        <h3>Reverse engineering</h3>
+        <div class="chips">
+          <span class="chip">Ghidra</span><span class="chip">IDA</span><span class="chip">Cheat Engine</span>
+          <span class="chip">Static analysis</span><span class="chip">Dynamic analysis</span>
+          <span class="chip">Deobfuscation</span>
+        </div>
+      </div>
+      <div class="comp-group">
+        <h3>Systems</h3>
+        <div class="chips">
+          <span class="chip">Process &amp; memory APIs</span><span class="chip">Pointer-chain resolution</span>
+          <span class="chip">Structure mapping</span>
+        </div>
+      </div>
+      <div class="comp-group">
+        <h3>Networking</h3>
+        <div class="chips">
+          <span class="chip">Binary protocol RE</span><span class="chip">Proxies &amp; MITM</span>
+          <span class="chip">Packet inspection</span>
+        </div>
+      </div>
+      <div class="comp-group">
+        <h3>Computer vision</h3>
+        <div class="chips">
+          <span class="chip">OpenCV</span><span class="chip">Dataset capture &amp; annotation</span>
+          <span class="chip">Detector training &amp; deployment</span>
+        </div>
+      </div>
+      <div class="comp-group">
+        <h3>Web</h3>
+        <div class="chips">
+          <span class="chip">End-to-end websites</span><span class="chip">WordPress theming</span>
+          <span class="chip">Third-party integrations</span><span class="chip">Admin panels</span>
+          <span class="chip">AI chatbots</span>
+        </div>
+      </div>
+      <div class="comp-group">
+        <h3>Graphics</h3>
+        <div class="chips">
+          <span class="chip">Unity render pipeline</span><span class="chip">HLSL shaders</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- WORK ---------------- -->
+  <section id="tab-work" class="panel" role="tabpanel" aria-label="Client work" hidden>
+    <div class="card-grid">
+
+      <article class="card">
+        <figure class="shot" data-label="nettisiili.fi">
+          <img src="public/Nettisiili.png" alt="Nettisiili homepage" loading="lazy">
+        </figure>
+        <div class="card-body">
+          <div class="card-head">
+            <h3>Nettisiili</h3>
+            <a class="domain" href="https://nettisiili-preview-2026.web.app/" target="_blank" rel="noopener">
+              nettisiili.fi
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+          <p>My own digital agency for Finnish small businesses — an AI chatbot, a fast
+             website, and an admin panel, in one package.</p>
+          <details>
+            <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
+            <ul>
+              <li>Concept, brand, and site design from scratch</li>
+              <li>Full build, bilingual (FI/EN)</li>
+              <li>Service packaging and pricing</li>
+            </ul>
+          </details>
+        </div>
+      </article>
+
+      <article class="card">
+        <figure class="shot" data-label="fastglass.online">
+          <img src="public/fastglass.png" alt="FastGlass homepage" loading="lazy">
+        </figure>
+        <div class="card-body">
+          <div class="card-head">
+            <h3>FastGlass</h3>
+            <a class="domain" href="https://fastglass.online/" target="_blank" rel="noopener">
+              fastglass.online
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+          <p class="card-sub">Auto glass shop, Tampere</p>
+          <p>Website, AI chatbot, and admin panel for a windshield replacement business.</p>
+          <details>
+            <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
+            <ul>
+              <li>Quote requests start from a license plate, with insurance details in the same form</li>
+              <li>Multi-step form, bilingual, local SEO</li>
+              <li>Admin panel for handling incoming requests</li>
+            </ul>
+          </details>
+        </div>
+      </article>
+
+      <article class="card">
+        <figure class="shot" data-label="thebestonebarbershop.fi">
+          <img src="public/thebestone.webp" alt="The Best One Barbershop homepage" loading="lazy">
+        </figure>
+        <div class="card-body">
+          <div class="card-head">
+            <h3>The Best One Barbershop</h3>
+            <a class="domain" href="https://thebestonebarbershop.fi/" target="_blank" rel="noopener">
+              thebestonebarbershop.fi
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+          <p class="card-sub">Barbershop, Tampere</p>
+          <p>Full site build from scratch — a customer can go from homepage to a booked
+             chair in three clicks.</p>
+          <details>
+            <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
+            <ul>
+              <li>Custom WordPress theme replacing the old site</li>
+              <li>Timma booking integration</li>
+              <li>Gallery, team section, and Google reviews</li>
+              <li>Bilingual (FI/EN), with a performance pass</li>
+            </ul>
+          </details>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ---------------- PROJECTS ---------------- -->
+  <section id="tab-projects" class="panel" role="tabpanel" aria-label="Technical projects" hidden>
+    <div class="tech-grid">
+
+      <article class="tech-card">
+        <h3>Stateful automation framework</h3>
+        <p class="meta">Java · 2019–2022</p>
+        <p>Five long-running scripts sharing one state machine, built for an MMO.
+           Designed to run unattended for hours and recover from errors instead of
+           stopping on them.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Process-memory tooling</h3>
+        <p class="meta">C++ · 2020–2024</p>
+        <p>Read/write tools for process memory across several game titles. Manual
+           structure mapping and pointer-chain resolution, redone after every update
+           that moved them.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Binary protocol RE &amp; MITM proxy</h3>
+        <p class="meta">C++ · 2021</p>
+        <p>A proxy between a game client and its server, decoding an undocumented
+           binary protocol recovered from captured traffic — with latency that had to
+           stay unnoticeable.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Public automation tool</h3>
+        <p class="meta">C++ · 2022</p>
+        <p>A bot built during a game's relaunch and shared with its community on
+           Discord. Got banned for it — the right call, from their side.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Custom render-pipeline shader</h3>
+        <p class="meta">C++, HLSL · 2022</p>
+        <p>A shader written into a game engine's rendering pipeline. The technique is
+           public knowledge now, and long since patched.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Computer-vision automation</h3>
+        <p class="meta">Python, OpenCV · 2022–2024</p>
+        <p>Screen-driven automation across two games, evolving from colour
+           segmentation into a detector trained on self-captured, self-annotated data.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Backtesting &amp; paper-trading framework</h3>
+        <p class="meta">Python · 2023–2024</p>
+        <p>Pulls market data, logs it, and replays a strategy through the exact code
+           path used for live decisions.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Company-data aggregation tool</h3>
+        <p class="meta">Python · 2024</p>
+        <p>An internal tool that compiles structured company data into an outreach
+           list. Stays in-house.</p>
+      </article>
+
+      <article class="tech-card">
+        <h3>Ongoing reverse engineering</h3>
+        <p class="meta">Ghidra, IDA · Ongoing</p>
+        <p>Static analysis on the side: locating functions of interest, recovering
+           structure, and following pointer chains — including through deliberately
+           obfuscated builds.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ---------------- CONTACT ---------------- -->
+  <section id="tab-contact" class="panel" role="tabpanel" aria-label="Contact" hidden>
+    <a class="big-email" href="mailto:eemeli.laurell@gmail.com">eemeli.laurell@gmail.com</a>
+    <dl class="contact-facts">
+      <dt>Location</dt><dd>Tampere, Finland</dd>
+      <dt>Languages</dt><dd>Finnish (native), English (fluent)</dd>
+      <dt>Interested in</dt><dd>Reverse engineering, tooling, automation, game security</dd>
+    </dl>
+  </section>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 mem3lz</span>
+  </footer>
+
+</main>
+
+<script>
+/* ---------------- Tabs ---------------- */
+var tabButtons = Array.prototype.slice.call(document.querySelectorAll('.tabs [role="tab"]'));
+var indicator = document.querySelector('.tab-indicator');
+
+function panelFor(name){ return document.getElementById('tab-' + name); }
+
+function moveIndicator(btn){
+  indicator.style.width = btn.offsetWidth + 'px';
+  indicator.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+}
+
+function selectTab(name, focusIt){
+  tabButtons.forEach(function(b){
+    var active = b.dataset.tab === name;
+    b.setAttribute('aria-selected', active);
+    b.tabIndex = active ? 0 : -1;
+    panelFor(b.dataset.tab).hidden = !active;
+    if (active){ moveIndicator(b); if (focusIt) b.focus(); }
+  });
+  history.replaceState(null, '', name === 'profile' ? location.pathname : '#' + name);
+}
+
+tabButtons.forEach(function(b){
+  b.addEventListener('click', function(){ selectTab(b.dataset.tab, false); });
+});
+
+document.querySelector('.tabs').addEventListener('keydown', function(e){
+  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  e.preventDefault();
+  var idx = tabButtons.findIndex(function(b){ return b.getAttribute('aria-selected') === 'true'; });
+  var next = e.key === 'ArrowRight'
+    ? (idx + 1) % tabButtons.length
+    : (idx - 1 + tabButtons.length) % tabButtons.length;
+  selectTab(tabButtons[next].dataset.tab, true);
+});
+
+window.addEventListener('resize', function(){
+  var active = tabButtons.find(function(b){ return b.getAttribute('aria-selected') === 'true'; });
+  if (active) moveIndicator(active);
+});
+
+var startTab = ['work', 'projects', 'contact'].indexOf(location.hash.slice(1)) !== -1
+  ? location.hash.slice(1) : 'profile';
+selectTab(startTab, false);
+window.addEventListener('load', function(){
+  var active = tabButtons.find(function(b){ return b.getAttribute('aria-selected') === 'true'; });
+  if (active) moveIndicator(active);
+});
+
+/* ---------------- Theme toggle ---------------- */
+document.getElementById('theme-toggle').addEventListener('click', function(){
+  var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem('mem3lz-theme', next); }catch(e){}
+});
+
+/* ---------------- Screenshot fallback ---------------- */
+document.querySelectorAll('.shot img').forEach(function(img){
+  img.addEventListener('error', function(){ img.closest('.shot').classList.add('empty'); });
+  if (img.complete && img.naturalWidth === 0) img.closest('.shot').classList.add('empty');
+});
+</script>
+
+</body>
+</html>
