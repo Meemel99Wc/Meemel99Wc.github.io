@@ -8,7 +8,9 @@
 (function(){
   try{
     var stored = localStorage.getItem('mem3lz-theme');
-    var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    /* Dark by default regardless of system preference — only an explicit
+       toggle (saved above) should ever produce light mode. */
+    var theme = stored || 'dark';
     document.documentElement.setAttribute('data-theme', theme);
   }catch(e){}
 })();
@@ -54,12 +56,6 @@
   --line:rgba(11,13,16,.12);
   --accent-ink:#00181d;
 }
-@media (prefers-color-scheme: light){
-  :root:not([data-theme]){
-    --bg:#ffffff; --panel:#f6f7f8; --ink:#0b0d10; --dim:#5b6269; --line:rgba(11,13,16,.12);
-  }
-}
-
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{

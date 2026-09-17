@@ -6,7 +6,9 @@
 (function(){
   try{
     var stored = localStorage.getItem('mem3lz-theme');
-    var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    /* Dark by default regardless of system preference — only an explicit
+       toggle (saved above) should ever produce light mode. */
+    var theme = stored || 'dark';
     document.documentElement.setAttribute('data-theme', theme);
   }catch(e){}
 })();
@@ -42,12 +44,6 @@
   --line:rgba(11,13,16,.12);
   --accent-ink:#00181d;
 }
-@media (prefers-color-scheme: light){
-  :root:not([data-theme]){
-    --bg:#ffffff; --panel:#f6f7f8; --ink:#0b0d10; --dim:#5b6269; --line:rgba(11,13,16,.12);
-  }
-}
-
 /* ============================================================
    RESET + BASE
    ============================================================ */
@@ -91,10 +87,6 @@ button{font-family:inherit}
   box-shadow:0 0 8px var(--accent);flex:none;
 }
 .topbar-actions{display:flex;align-items:center;gap:16px}
-.nostalgia-link{
-  font-size:13.5px;color:var(--dim);text-decoration:none;white-space:nowrap;
-}
-.nostalgia-link:hover{color:var(--accent)}
 .icon-btn{
   width:34px;height:34px;flex:none;border-radius:10px;
   border:1px solid var(--line);background:var(--panel);color:var(--ink);
@@ -288,7 +280,6 @@ button{font-family:inherit}
   <div class="topbar-inner">
     <a class="wordmark" href="#"><span class="dot"></span>mem3lz</a>
     <div class="topbar-actions">
-      <a class="nostalgia-link" href="retro.html">prefer nostalgia? &rarr;</a>
       <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle color theme">
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -645,7 +636,6 @@ button{font-family:inherit}
   <footer class="site-footer">
     <span>&copy; 2026 mem3lz</span>
     <span>Hand-built HTML, CSS, and a little JS</span>
-    <a href="retro.html">prefer nostalgia? &rarr;</a>
   </footer>
 
 </main>
