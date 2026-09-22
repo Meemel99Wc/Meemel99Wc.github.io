@@ -392,7 +392,7 @@ button{font-family:inherit}
         <div class="card-body">
           <div class="card-head">
             <h3>Nettisiili</h3>
-            <a class="domain" href="https://nettisiili-preview-2026.web.app/" target="_blank" rel="noopener">
+            <a class="domain" href="https://nettisiili.fi" target="_blank" rel="noopener">
               nettisiili.fi
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
@@ -495,18 +495,6 @@ button{font-family:inherit}
         <p>Read/write tools for process memory across several game titles. Manual
            structure mapping and pointer-chain resolution, redone after every update
            that moved them.</p>
-        <div class="tech-links">
-          <!-- Repo not uploaded yet — swap this href for the real one. -->
-          <a class="tech-link" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            GitHub
-          </a>
-          <!-- No live showcase yet — swap this href once one exists. -->
-          <a class="tech-link" href="showcases/process-memory-tooling.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            Showcase
-          </a>
-        </div>
       </article>
 
       <article class="tech-card">
@@ -551,20 +539,15 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Custom render-pipeline shader</h3>
         <p class="meta">C++, HLSL · 2022</p>
-        <p>A shader written into a game engine's rendering pipeline. The technique is
-           public knowledge now, and long since patched.</p>
-        <div class="tech-links">
-          <!-- Repo not uploaded yet — swap this href for the real one. -->
-          <a class="tech-link" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            GitHub
-          </a>
-          <!-- No live showcase yet — swap this href once one exists. -->
-          <a class="tech-link" href="showcases/custom-render-pipeline-shader.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            Showcase
-          </a>
-        </div>
+        <p>A shader written into a game engine's rendering pipeline to produce
+           a chams effect — broadly the same approach described in
+           <a class="tech-link" href="https://www.unknowncheats.me/forum/escape-from-tarkov/489571-creating-custom-shaders-chams.html" target="_blank" rel="noopener">this write-up</a>
+           (couldn't find the older guide this was originally based on). The
+           old method just needed the injected shader file's size to match
+           the original, since there was no real validity check; once a
+           check was added, importing still worked as long as it happened
+           while the game was sitting in its lobby. Public knowledge now,
+           and long since patched.</p>
       </article>
 
       <article class="tech-card">
@@ -572,35 +555,36 @@ button{font-family:inherit}
         <p class="meta">Python, OpenCV · 2022–2024</p>
         <p>Screen-driven automation across two games, evolving from colour
            segmentation into a detector trained on self-captured, self-annotated data.</p>
+      </article>
+
+
+      <article class="tech-card">
+        <h3>m3emz Backtester</h3>
+        <p class="meta">Python, PyQt5, Claude API · 2025–2026</p>
+        <p>A desktop app for backtesting crypto strategies: five built-in strategies,
+           multi-symbol runs, and a Claude integration for interpreting results —
+           paste in a failing run's error log and get a fixed strategy back.</p>
         <div class="tech-links">
-          <!-- Repo not uploaded yet — swap this href for the real one. -->
-          <a class="tech-link" href="#" target="_blank" rel="noopener">
+          <a class="tech-link" href="https://github.com/Meemel99Wc/m3emz_backtester" target="_blank" rel="noopener">
             <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
-          </a>
-          <!-- No live showcase yet — swap this href once one exists. -->
-          <a class="tech-link" href="showcases/computer-vision-automation.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            Showcase
           </a>
         </div>
       </article>
 
       <article class="tech-card">
-        <h3>Backtesting &amp; paper-trading framework</h3>
-        <p class="meta">Python · 2023–2024</p>
-        <p>Pulls market data, logs it, and replays a strategy through the exact code
-           path used for live decisions.</p>
+        <h3>Jagex account creation tool</h3>
+        <p class="meta">Java, Selenium · 2025–2026</p>
+        <p>Automates Jagex account creation for testing and learning purposes —
+           an account ready in roughly 15 seconds without 2FA, 30 with. IMAP
+           catch-all or Guerrilla Mail for emails, automatic TOTP 2FA, proxy
+           support with authentication, multithreaded runs across several
+           accounts, and Cloudflare/Turnstile challenge handling with results
+           exported as JSON.</p>
         <div class="tech-links">
-          <!-- Repo not uploaded yet — swap this href for the real one. -->
-          <a class="tech-link" href="#" target="_blank" rel="noopener">
+          <a class="tech-link" href="https://github.com/Meemel99Wc/jagex-account-creator" target="_blank" rel="noopener">
             <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
-          </a>
-          <!-- No live showcase yet — swap this href once one exists. -->
-          <a class="tech-link" href="showcases/backtesting-paper-trading-framework.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            Showcase
           </a>
         </div>
       </article>
