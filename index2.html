@@ -116,6 +116,7 @@ button{font-family:inherit}
 }
 .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
 .icon-btn svg{width:17px;height:17px}
+.lang-btn{width:auto;padding:0 12px;font-size:12.5px;font-weight:700;letter-spacing:.03em}
 .icon-btn .i-moon{display:none}
 [data-theme="light"] .icon-btn .i-sun{display:none}
 [data-theme="light"] .icon-btn .i-moon{display:block}
@@ -303,6 +304,7 @@ button{font-family:inherit}
   <div class="topbar-inner">
     <a class="wordmark" href="#"><span class="dot"></span>mem3lz</a>
     <div class="topbar-actions">
+      <button class="icon-btn lang-btn" id="lang-toggle" type="button" aria-label="Switch language to Finnish">FI</button>
       <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle color theme">
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -318,11 +320,11 @@ button{font-family:inherit}
     <div class="profile-text">
       <h1 class="name">Eemeli Laurell</h1>
       <p class="handle">@mem3lz</p>
-      <p class="tagline">Systems programmer. Reverse engineering, low-level tools, web.</p>
+      <p class="tagline" data-fi="Järjestelmäohjelmoija. Käänteismallinnusta, matalan tason työkaluja, webiä.">Systems programmer. Reverse engineering, low-level tools, web.</p>
       <ul class="meta-row">
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.4-7-12a7 7 0 1 1 14 0c0 4.6-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          Tampere, Finland
+          <span data-fi="Tampere, Suomi">Tampere, Finland</span>
         </li>
         <li>
           <a href="mailto:eemeli.laurell@gmail.com">
@@ -335,16 +337,16 @@ button{font-family:inherit}
   </section>
 
   <nav class="tabs" role="tablist" aria-label="Sections">
-    <button role="tab" data-tab="profile" aria-controls="tab-profile" aria-selected="true">Profile</button>
-    <button role="tab" data-tab="work" aria-controls="tab-work" aria-selected="false" tabindex="-1">Work</button>
-    <button role="tab" data-tab="projects" aria-controls="tab-projects" aria-selected="false" tabindex="-1">Projects</button>
-    <button role="tab" data-tab="contact" aria-controls="tab-contact" aria-selected="false" tabindex="-1">Contact</button>
+    <button role="tab" data-tab="profile" aria-controls="tab-profile" aria-selected="true" data-fi="Profiili">Profile</button>
+    <button role="tab" data-tab="work" aria-controls="tab-work" aria-selected="false" tabindex="-1" data-fi="Työt">Work</button>
+    <button role="tab" data-tab="projects" aria-controls="tab-projects" aria-selected="false" tabindex="-1" data-fi="Projektit">Projects</button>
+    <button role="tab" data-tab="contact" aria-controls="tab-contact" aria-selected="false" tabindex="-1" data-fi="Yhteystiedot">Contact</button>
     <span class="tab-indicator" aria-hidden="true"></span>
   </nav>
 
   <!-- ---------------- PROFILE ---------------- -->
   <section id="tab-profile" class="panel" role="tabpanel" aria-label="Profile">
-    <p class="bio">Self-taught, and most comfortable working close to the machine. Six
+    <p class="bio" data-fi="Itseoppinut ja viihdyn parhaiten lähellä konetta. Kuusi vuotta automaatio- ja analyysityökalujen rakentamista kohteita vastaan, jotka ovat eläviä, dokumentoimattomia ja aktiivisesti tutkimista vastustavia. Kotonani C++:ssa, Pythonissa ja Javassa, ja aivan yhtä lailla disassemblerissa kun lähdekoodia ei ole luettavana. Etsin työtä, joka rakentuu asioiden purkamisen ympärille: käänteismallinnus, työkalut, automaatio, pelien tietoturva.">Self-taught, and most comfortable working close to the machine. Six
       years building automation and analysis tools against targets that are live,
       undocumented, and actively resistant to being looked at. At home in C++, Python,
       and Java, and just as much in a disassembler when there's no source to read.
@@ -353,52 +355,52 @@ button{font-family:inherit}
 
     <div class="competencies">
       <div class="comp-group">
-        <h3>Languages</h3>
+        <h3 data-fi="Kielet">Languages</h3>
         <div class="chips">
           <span class="chip">C++</span><span class="chip">Python</span><span class="chip">Java</span>
         </div>
       </div>
       <div class="comp-group">
-        <h3>Reverse engineering</h3>
+        <h3 data-fi="Käänteismallinnus">Reverse engineering</h3>
         <div class="chips">
           <span class="chip">Ghidra</span><span class="chip">IDA</span><span class="chip">Cheat Engine</span>
-          <span class="chip">Static analysis</span><span class="chip">Dynamic analysis</span>
-          <span class="chip">Deobfuscation</span>
+          <span class="chip" data-fi="Staattinen analyysi">Static analysis</span><span class="chip" data-fi="Dynaaminen analyysi">Dynamic analysis</span>
+          <span class="chip" data-fi="Deobfuskointi">Deobfuscation</span>
         </div>
       </div>
       <div class="comp-group">
-        <h3>Systems</h3>
+        <h3 data-fi="Järjestelmät">Systems</h3>
         <div class="chips">
-          <span class="chip">Process &amp; memory APIs</span><span class="chip">Pointer-chain resolution</span>
-          <span class="chip">Structure mapping</span>
+          <span class="chip" data-fi="Prosessi- ja muisti-API:t">Process &amp; memory APIs</span><span class="chip" data-fi="Osoitinketjujen ratkonta">Pointer-chain resolution</span>
+          <span class="chip" data-fi="Rakenteiden kartoitus">Structure mapping</span>
         </div>
       </div>
       <div class="comp-group">
-        <h3>Networking</h3>
+        <h3 data-fi="Verkot">Networking</h3>
         <div class="chips">
-          <span class="chip">Binary protocol RE</span><span class="chip">Proxies &amp; MITM</span>
-          <span class="chip">Packet inspection</span>
+          <span class="chip" data-fi="Binääriprotokollan RE">Binary protocol RE</span><span class="chip" data-fi="Välityspalvelimet ja MITM">Proxies &amp; MITM</span>
+          <span class="chip" data-fi="Pakettien tarkastelu">Packet inspection</span>
         </div>
       </div>
       <div class="comp-group">
-        <h3>Computer vision</h3>
+        <h3 data-fi="Konenäkö">Computer vision</h3>
         <div class="chips">
-          <span class="chip">OpenCV</span><span class="chip">Dataset capture &amp; annotation</span>
-          <span class="chip">Detector training &amp; deployment</span>
+          <span class="chip">OpenCV</span><span class="chip" data-fi="Aineiston keruu ja annotointi">Dataset capture &amp; annotation</span>
+          <span class="chip" data-fi="Tunnistimen koulutus ja käyttöönotto">Detector training &amp; deployment</span>
         </div>
       </div>
       <div class="comp-group">
         <h3>Web</h3>
         <div class="chips">
-          <span class="chip">End-to-end websites</span><span class="chip">WordPress theming</span>
-          <span class="chip">Third-party integrations</span><span class="chip">Admin panels</span>
-          <span class="chip">AI chatbots</span>
+          <span class="chip" data-fi="Verkkosivut päästä päähän">End-to-end websites</span><span class="chip" data-fi="WordPress-teemat">WordPress theming</span>
+          <span class="chip" data-fi="Kolmannen osapuolen integraatiot">Third-party integrations</span><span class="chip" data-fi="Hallintapaneelit">Admin panels</span>
+          <span class="chip" data-fi="Tekoäly-chatbotit">AI chatbots</span>
         </div>
       </div>
       <div class="comp-group">
-        <h3>Graphics</h3>
+        <h3 data-fi="Grafiikka">Graphics</h3>
         <div class="chips">
-          <span class="chip">Unity render pipeline</span><span class="chip">HLSL shaders</span>
+          <span class="chip" data-fi="Unity-renderöintiputki">Unity render pipeline</span><span class="chip" data-fi="HLSL-varjostimet">HLSL shaders</span>
         </div>
       </div>
     </div>
@@ -420,14 +422,14 @@ button{font-family:inherit}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <p>My own digital agency for Finnish small businesses. AI chatbot, fast
+          <p data-fi="Oma digitoimistoni suomalaisille pienyrityksille. Tekoäly-chatbot, nopea verkkosivu ja hallintapaneeli yhdessä paketissa.">My own digital agency for Finnish small businesses. AI chatbot, fast
              website, and admin panel in one package.</p>
           <details>
-            <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
+            <summary><span data-fi="Lisätiedot">Details</span> <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
             <ul>
-              <li>Concept, brand, and site design from scratch</li>
-              <li>Full build, bilingual (FI/EN)</li>
-              <li>Service packaging and pricing</li>
+              <li data-fi="Konsepti, brändi ja sivuston suunnittelu alusta asti">Concept, brand, and site design from scratch</li>
+              <li data-fi="Täysi toteutus, kaksikielinen (FI/EN)">Full build, bilingual (FI/EN)</li>
+              <li data-fi="Palvelun paketointi ja hinnoittelu">Service packaging and pricing</li>
             </ul>
           </details>
         </div>
@@ -445,14 +447,14 @@ button{font-family:inherit}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <p class="card-sub">Auto glass shop, Tampere</p>
-          <p>Website, AI chatbot, and admin panel for a windshield replacement business.</p>
+          <p class="card-sub" data-fi="Autolasiliike, Tampere">Auto glass shop, Tampere</p>
+          <p data-fi="Verkkosivu, tekoäly-chatbot ja hallintapaneeli tuulilasien vaihtoon erikoistuneelle yritykselle.">Website, AI chatbot, and admin panel for a windshield replacement business.</p>
           <details>
-            <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
+            <summary><span data-fi="Lisätiedot">Details</span> <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
             <ul>
-              <li>Quote requests start from a license plate, with insurance details in the same form</li>
-              <li>Multi-step form, bilingual, local SEO</li>
-              <li>Admin panel for handling incoming requests</li>
+              <li data-fi="Tarjouspyynnöt alkavat rekisterinumerosta, vakuutustiedot samassa lomakkeessa">Quote requests start from a license plate, with insurance details in the same form</li>
+              <li data-fi="Monivaiheinen lomake, kaksikielinen, paikallinen SEO">Multi-step form, bilingual, local SEO</li>
+              <li data-fi="Hallintapaneeli saapuvien pyyntöjen käsittelyyn">Admin panel for handling incoming requests</li>
             </ul>
           </details>
         </div>
@@ -470,16 +472,16 @@ button{font-family:inherit}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <p class="card-sub">Barbershop, Tampere</p>
-          <p>Full site build from scratch. A customer can go from homepage to a booked
+          <p class="card-sub" data-fi="Parturi, Tampere">Barbershop, Tampere</p>
+          <p data-fi="Koko sivusto rakennettu alusta asti. Asiakas etenee etusivulta varattuun tuoliin kolmella klikkauksella.">Full site build from scratch. A customer can go from homepage to a booked
              chair in three clicks.</p>
           <details>
-            <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
+            <summary><span data-fi="Lisätiedot">Details</span> <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
             <ul>
-              <li>Custom WordPress theme replacing the old site</li>
-              <li>Timma booking integration</li>
-              <li>Gallery, team section, and Google reviews</li>
-              <li>Bilingual (FI/EN), with a performance pass</li>
+              <li data-fi="Räätälöity WordPress-teema vanhan sivuston tilalle">Custom WordPress theme replacing the old site</li>
+              <li data-fi="Timma-varausintegraatio">Timma booking integration</li>
+              <li data-fi="Galleria, tiimiosio ja Google-arvostelut">Gallery, team section, and Google reviews</li>
+              <li data-fi="Kaksikielinen (FI/EN), suorituskykyoptimointi">Bilingual (FI/EN), with a performance pass</li>
             </ul>
           </details>
         </div>
@@ -495,7 +497,7 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Stateful automation framework</h3>
         <p class="meta">Java · 2025</p>
-        <p>A combat automation script for an MMO, driven by a single state machine.
+        <p data-fi="Taisteluautomaatioskripti MMO-peliin, jota ohjaa yksi tilakone. Se hyökkää kohteisiin, kerää saaliin, parantaa ja pankittaa itsenäisesti ja toipuu keskeytyksistä jämähtämisen sijaan. Viiden skriptin sarjan ainoa eloonjäänyt; muut neljä menetettiin levyn tyhjennyksessä.">A combat automation script for an MMO, driven by a single state machine.
            It engages targets, loots, heals, and banks unattended, recovering from
            interruptions instead of stalling. The lone survivor of a five-script
            series; the other four were lost to a drive wipe.</p>
@@ -510,7 +512,7 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Binary protocol RE &amp; MITM proxy</h3>
         <p class="meta">C++ · 2021</p>
-        <p>A proxy between a game client and its server, decoding an undocumented
+        <p data-fi="Välityspalvelin pelin asiakasohjelman ja palvelimen välissä, purkaen dokumentoimatonta binääriprotokollaa kaapatusta liikenteestä. Viiveen oli pysyttävä huomaamattomana.">A proxy between a game client and its server, decoding an undocumented
            binary protocol recovered from captured traffic. Latency had to
            stay unnoticeable.</p>
         <div class="tech-links">
@@ -519,18 +521,13 @@ button{font-family:inherit}
             <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
           </a>
-          <!-- No live showcase yet — swap this href once one exists. -->
-          <a class="tech-link" href="showcases/binary-protocol-re-mitm-proxy.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            Showcase
-          </a>
         </div>
       </article>
 
       <article class="tech-card">
         <h3>Public automation tool</h3>
         <p class="meta">C++ · 2022</p>
-        <p>A bot built during a game's relaunch and shared with its community on
+        <p data-fi="Botti, joka rakennettiin pelin uudelleenjulkaisun aikaan ja jaettiin sen yhteisölle Discordissa. Sai siitä porttikiellon; oikea ratkaisu heidän puoleltaan.">A bot built during a game's relaunch and shared with its community on
            Discord. Got banned for it; the right call from their side.</p>
         <div class="tech-links">
           <!-- Repo not uploaded yet — swap this href for the real one. -->
@@ -538,18 +535,13 @@ button{font-family:inherit}
             <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
           </a>
-          <!-- No live showcase yet — swap this href once one exists. -->
-          <a class="tech-link" href="showcases/public-automation-tool.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            Showcase
-          </a>
         </div>
       </article>
 
       <article class="tech-card">
         <h3>m3emz Backtester</h3>
         <p class="meta">Python, PyQt5, Claude API · 2025–2026</p>
-        <p>A desktop app for backtesting crypto strategies: five built-in strategies,
+        <p data-fi="Työpöytäsovellus kryptostrategioiden takaisintestaukseen: viisi valmista strategiaa, moni-symboliajot ja Claude-integraatio tulosten tulkintaan. Liitä epäonnistuneen ajon virheloki ja saat korjatun strategian takaisin.">A desktop app for backtesting crypto strategies: five built-in strategies,
            multi-symbol runs, and a Claude integration for interpreting results.
            Paste in a failing run's error log and get a fixed strategy back.</p>
         <div class="tech-links">
@@ -563,7 +555,7 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Jagex account creation tool</h3>
         <p class="meta">Java, Selenium · 2025–2026</p>
-        <p>Automates Jagex account creation for testing and learning purposes.
+        <p data-fi="Automatisoi Jagex-tilien luonnin testaus- ja opiskelutarkoituksiin. Tili on valmis noin 15 sekunnissa ilman 2FA:ta, 30 sekunnissa sen kanssa. Sähköposteihin IMAP-catch-all tai Guerrilla Mail, automaattinen TOTP-2FA, proxy-tuki tunnistautumisella, monisäikeiset ajot usealla tilillä sekä Cloudflaren/Turnstilen haasteiden käsittely ja tulokset JSON-muodossa.">Automates Jagex account creation for testing and learning purposes.
            An account is ready in roughly 15 seconds without 2FA, 30 with. IMAP
            catch-all or Guerrilla Mail for emails, automatic TOTP 2FA, proxy
            support with authentication, multithreaded runs across several
@@ -580,7 +572,7 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Process-memory tooling</h3>
         <p class="meta">C++ · 2020–2024</p>
-        <p>Read/write tools for process memory across several game titles. Manual
+        <p data-fi="Luku- ja kirjoitustyökaluja prosessimuistiin useassa pelinimikkeessä. Manuaalinen rakenteiden kartoitus ja osoitinketjujen ratkonta, tehty uudelleen jokaisen niitä siirtäneen päivityksen jälkeen.">Read/write tools for process memory across several game titles. Manual
            structure mapping and pointer-chain resolution, redone after every update
            that moved them.</p>
       </article>
@@ -588,35 +580,35 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Custom render-pipeline shader</h3>
         <p class="meta">C++, HLSL · 2022</p>
-        <p>A shader written into a game engine's rendering pipeline to produce
+        <p><span data-fi="Varjostin, joka on kirjoitettu pelimoottorin renderöintiputkeen tuottamaan chams-efektin, karkeasti sama lähestymistapa kuin ">A shader written into a game engine's rendering pipeline to produce
            a chams effect, broadly the same approach described in
-           <a class="tech-link" href="https://www.unknowncheats.me/forum/escape-from-tarkov/489571-creating-custom-shaders-chams.html" target="_blank" rel="noopener">this write-up</a>
+           </span><a class="tech-link" href="https://www.unknowncheats.me/forum/escape-from-tarkov/489571-creating-custom-shaders-chams.html" target="_blank" rel="noopener" data-fi="tässä kirjoituksessa">this write-up</a><span data-fi=" (en löytänyt vanhempaa opasta, johon tämä alun perin perustui). Vanha menetelmä vaati vain, että injektoidun varjostintiedoston koko vastasi alkuperäistä, koska varsinaista kelpoisuustarkistusta ei ollut; kun tarkistus lisättiin, tuonti toimi silti niin kauan kuin se tehtiin pelin ollessa aulassa. Nykyään julkista tietoa ja aikaa sitten paikattu.">
            (couldn't find the older guide this was originally based on). The
            old method just needed the injected shader file's size to match
            the original, since there was no real validity check; once a
            check was added, importing still worked as long as it happened
            while the game was sitting in its lobby. Public knowledge now,
-           and long since patched.</p>
+           and long since patched.</span></p>
       </article>
 
       <article class="tech-card">
         <h3>Computer-vision automation</h3>
         <p class="meta">Python, OpenCV · 2022–2024</p>
-        <p>Screen-driven automation across two games, evolving from colour
+        <p data-fi="Ruudulta ohjautuvaa automaatiota kahdessa pelissä, kehittyi värisegmentoinnista tunnistimeksi, joka koulutettiin itse kaapatulla ja itse annotoidulla datalla.">Screen-driven automation across two games, evolving from colour
            segmentation into a detector trained on self-captured, self-annotated data.</p>
       </article>
 
       <article class="tech-card">
         <h3>Company-data aggregation tool</h3>
         <p class="meta">Python · 2024</p>
-        <p>An internal tool that compiles structured company data into an outreach
+        <p data-fi="Sisäinen työkalu, joka kokoaa jäsennellyn yritysdatan yhteydenottolistaksi. Pysyy talon sisällä.">An internal tool that compiles structured company data into an outreach
            list. Stays in-house.</p>
       </article>
 
       <article class="tech-card">
         <h3>Ongoing reverse engineering</h3>
         <p class="meta">Ghidra, IDA · Ongoing</p>
-        <p>Static analysis on the side: locating functions of interest, recovering
+        <p data-fi="Staattista analyysiä sivussa: kiinnostavien funktioiden paikannus, rakenteen palautus ja osoitinketjujen seuraaminen, myös tarkoituksella obfuskoiduissa buildeissa.">Static analysis on the side: locating functions of interest, recovering
            structure, and following pointer chains, including through deliberately
            obfuscated builds.</p>
       </article>
@@ -628,15 +620,15 @@ button{font-family:inherit}
   <section id="tab-contact" class="panel" role="tabpanel" aria-label="Contact" hidden>
     <a class="big-email" href="mailto:eemeli.laurell@gmail.com">eemeli.laurell@gmail.com</a>
     <dl class="contact-facts">
-      <dt>Location</dt><dd>Tampere, Finland</dd>
-      <dt>Languages</dt><dd>Finnish (native), English (fluent)</dd>
-      <dt>Interested in</dt><dd>Reverse engineering, tooling, automation, game security</dd>
+      <dt data-fi="Sijainti">Location</dt><dd data-fi="Tampere, Suomi">Tampere, Finland</dd>
+      <dt data-fi="Kielet">Languages</dt><dd data-fi="suomi (äidinkieli), englanti (sujuva)">Finnish (native), English (fluent)</dd>
+      <dt data-fi="Kiinnostuksen kohteet">Interested in</dt><dd data-fi="Käänteismallinnus, työkalut, automaatio, pelien tietoturva">Reverse engineering, tooling, automation, game security</dd>
     </dl>
   </section>
 
   <footer class="site-footer">
     <span>&copy; 2026 mem3lz</span>
-    <span>Hand-built HTML, CSS, and a little JS</span>
+    <span data-fi="Käsin tehty HTML, CSS ja vähän JS:ää">Hand-built HTML, CSS, and a little JS</span>
   </footer>
 
 </main>
@@ -721,6 +713,31 @@ document.querySelectorAll('.shot img').forEach(function(img){
   img.addEventListener('error', function(){ img.closest('.shot').classList.add('empty'); });
   if (img.complete && img.naturalWidth === 0) img.closest('.shot').classList.add('empty');
 });
+
+/* ---------------- Language toggle (FI / EN) ---------------- */
+(function(){
+  var langBtn = document.getElementById('lang-toggle');
+  var i18nEls = Array.prototype.slice.call(document.querySelectorAll('[data-fi]'));
+  i18nEls.forEach(function(el){ el.dataset.en = el.textContent; });
+  function applyLang(lang){
+    document.documentElement.lang = lang;
+    i18nEls.forEach(function(el){
+      el.textContent = (lang === 'fi') ? el.dataset.fi : el.dataset.en;
+    });
+    langBtn.textContent = (lang === 'fi') ? 'EN' : 'FI';
+    langBtn.setAttribute('aria-label', (lang === 'fi') ? 'Vaihda kieli englanniksi' : 'Switch language to Finnish');
+    var active = tabButtons.find(function(b){ return b.getAttribute('aria-selected') === 'true'; });
+    if (active) moveIndicator(active);
+  }
+  var saved = 'en';
+  try{ saved = localStorage.getItem('mem3lz-lang') || 'en'; }catch(e){}
+  applyLang(saved);
+  langBtn.addEventListener('click', function(){
+    var next = (document.documentElement.lang === 'fi') ? 'en' : 'fi';
+    applyLang(next);
+    try{ localStorage.setItem('mem3lz-lang', next); }catch(e){}
+  });
+})();
 </script>
 
 </body>
