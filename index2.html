@@ -17,8 +17,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#000000">
-<title>Eemeli Laurell — Systems programmer</title>
-<meta name="description" content="Eemeli Laurell (mem3lz) — systems programmer in Tampere, Finland. Reverse engineering, low-level tools, and web. Client work, technical projects, and contact info.">
+<title>Eemeli Laurell · Systems programmer</title>
+<meta name="description" content="Eemeli Laurell (mem3lz), systems programmer in Tampere, Finland. Reverse engineering, low-level tools, and web. Client work, technical projects, and contact info.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2322d3ee'/%3E%3Ctext x='32' y='43' font-size='32' font-family='Arial,Helvetica,sans-serif' font-weight='700' fill='%23000' text-anchor='middle'%3Em%3C/text%3E%3C/svg%3E">
 <style>
 /* ============================================================
@@ -32,6 +32,9 @@
   --line:rgba(244,241,234,.14);
   --accent:#22d3ee;
   --accent-ink:#00181d;
+  --dot:rgba(244,241,234,.05);
+  --glow:rgba(34,211,238,.13);
+  --bar:rgba(0,0,0,.6);
   --radius-card:16px;
   --radius-avatar:18px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -43,6 +46,9 @@
   --dim:#5b6269;
   --line:rgba(11,13,16,.12);
   --accent-ink:#00181d;
+  --dot:rgba(11,13,16,.05);
+  --glow:rgba(34,211,238,.10);
+  --bar:rgba(255,255,255,.68);
 }
 /* ============================================================
    RESET + BASE
@@ -56,6 +62,21 @@ body{
   color:var(--ink);
   line-height:1.5;
   transition:background-color .15s ease, color .15s ease;
+}
+/* Background: a soft accent glow up top and a faint dot grid that fades out.
+   Both are fixed, behind everything, and non-interactive. */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(60% 42% at 50% -6%, var(--glow), transparent 72%),
+    radial-gradient(42% 34% at 88% 4%, var(--glow), transparent 70%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(var(--dot) 1px, transparent 1.4px);
+  background-size:23px 23px;
+  -webkit-mask-image:linear-gradient(180deg,#000, transparent 55%);
+  mask-image:linear-gradient(180deg,#000, transparent 55%);
 }
 h1,h2,h3{margin:0}
 p{margin:0}
@@ -72,7 +93,8 @@ button{font-family:inherit}
    ============================================================ */
 .topbar{
   position:sticky;top:0;z-index:30;
-  background:var(--bg);border-bottom:1px solid var(--line);
+  background:var(--bar);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
 }
 .topbar-inner{
   max-width:700px;margin:0 auto;padding:13px 20px;
@@ -127,7 +149,8 @@ button{font-family:inherit}
 .tabs{
   position:sticky;top:59px;z-index:20;
   display:flex;gap:2px;margin-top:18px;border-bottom:1px solid var(--line);
-  background:var(--bg);overflow-x:auto;scrollbar-width:none;
+  background:var(--bar);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  overflow-x:auto;scrollbar-width:none;
 }
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{
@@ -176,7 +199,7 @@ button{font-family:inherit}
   content:attr(data-label);position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
   font-size:12px;letter-spacing:.04em;color:var(--dim);
-  background:repeating-linear-gradient(135deg,var(--panel) 0 10px,var(--bg) 10px 20px);
+  background:var(--panel);
 }
 .card-body{padding:16px 18px 18px}
 .card-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}
@@ -295,7 +318,7 @@ button{font-family:inherit}
     <div class="profile-text">
       <h1 class="name">Eemeli Laurell</h1>
       <p class="handle">@mem3lz</p>
-      <p class="tagline">Systems programmer — reverse engineering, low-level tools, web.</p>
+      <p class="tagline">Systems programmer. Reverse engineering, low-level tools, web.</p>
       <ul class="meta-row">
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-7.4-7-12a7 7 0 1 1 14 0c0 4.6-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
@@ -323,7 +346,7 @@ button{font-family:inherit}
   <section id="tab-profile" class="panel" role="tabpanel" aria-label="Profile">
     <p class="bio">Self-taught, and most comfortable working close to the machine. Six
       years building automation and analysis tools against targets that are live,
-      undocumented, and actively resistant to being looked at — at home in C++, Python,
+      undocumented, and actively resistant to being looked at. At home in C++, Python,
       and Java, and just as much in a disassembler when there's no source to read.
       Looking for work built around taking things apart: reverse engineering, tooling,
       automation, game security.</p>
@@ -397,8 +420,8 @@ button{font-family:inherit}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <p>My own digital agency for Finnish small businesses — an AI chatbot, a fast
-             website, and an admin panel, in one package.</p>
+          <p>My own digital agency for Finnish small businesses. AI chatbot, fast
+             website, and admin panel in one package.</p>
           <details>
             <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
             <ul>
@@ -448,7 +471,7 @@ button{font-family:inherit}
             </a>
           </div>
           <p class="card-sub">Barbershop, Tampere</p>
-          <p>Full site build from scratch — a customer can go from homepage to a booked
+          <p>Full site build from scratch. A customer can go from homepage to a booked
              chair in three clicks.</p>
           <details>
             <summary>Details <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary>
@@ -472,8 +495,8 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Stateful automation framework</h3>
         <p class="meta">Java · 2025</p>
-        <p>A combat automation script for an MMO, driven by a single state machine —
-           engages targets, loots, heals, and banks unattended, recovering from
+        <p>A combat automation script for an MMO, driven by a single state machine.
+           It engages targets, loots, heals, and banks unattended, recovering from
            interruptions instead of stalling. The lone survivor of a five-script
            series; the other four were lost to a drive wipe.</p>
         <div class="tech-links">
@@ -488,7 +511,7 @@ button{font-family:inherit}
         <h3>Binary protocol RE &amp; MITM proxy</h3>
         <p class="meta">C++ · 2021</p>
         <p>A proxy between a game client and its server, decoding an undocumented
-           binary protocol recovered from captured traffic — with latency that had to
+           binary protocol recovered from captured traffic. Latency had to
            stay unnoticeable.</p>
         <div class="tech-links">
           <!-- Repo not uploaded yet — swap this href for the real one. -->
@@ -508,7 +531,7 @@ button{font-family:inherit}
         <h3>Public automation tool</h3>
         <p class="meta">C++ · 2022</p>
         <p>A bot built during a game's relaunch and shared with its community on
-           Discord. Got banned for it — the right call, from their side.</p>
+           Discord. Got banned for it; the right call from their side.</p>
         <div class="tech-links">
           <!-- Repo not uploaded yet — swap this href for the real one. -->
           <a class="tech-link" href="#" target="_blank" rel="noopener">
@@ -527,8 +550,8 @@ button{font-family:inherit}
         <h3>m3emz Backtester</h3>
         <p class="meta">Python, PyQt5, Claude API · 2025–2026</p>
         <p>A desktop app for backtesting crypto strategies: five built-in strategies,
-           multi-symbol runs, and a Claude integration for interpreting results —
-           paste in a failing run's error log and get a fixed strategy back.</p>
+           multi-symbol runs, and a Claude integration for interpreting results.
+           Paste in a failing run's error log and get a fixed strategy back.</p>
         <div class="tech-links">
           <a class="tech-link" href="https://github.com/Meemel99Wc/m3emz_backtester" target="_blank" rel="noopener">
             <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -540,8 +563,8 @@ button{font-family:inherit}
       <article class="tech-card">
         <h3>Jagex account creation tool</h3>
         <p class="meta">Java, Selenium · 2025–2026</p>
-        <p>Automates Jagex account creation for testing and learning purposes —
-           an account ready in roughly 15 seconds without 2FA, 30 with. IMAP
+        <p>Automates Jagex account creation for testing and learning purposes.
+           An account is ready in roughly 15 seconds without 2FA, 30 with. IMAP
            catch-all or Guerrilla Mail for emails, automatic TOTP 2FA, proxy
            support with authentication, multithreaded runs across several
            accounts, and Cloudflare/Turnstile challenge handling with results
@@ -566,7 +589,7 @@ button{font-family:inherit}
         <h3>Custom render-pipeline shader</h3>
         <p class="meta">C++, HLSL · 2022</p>
         <p>A shader written into a game engine's rendering pipeline to produce
-           a chams effect — broadly the same approach described in
+           a chams effect, broadly the same approach described in
            <a class="tech-link" href="https://www.unknowncheats.me/forum/escape-from-tarkov/489571-creating-custom-shaders-chams.html" target="_blank" rel="noopener">this write-up</a>
            (couldn't find the older guide this was originally based on). The
            old method just needed the injected shader file's size to match
@@ -594,7 +617,7 @@ button{font-family:inherit}
         <h3>Ongoing reverse engineering</h3>
         <p class="meta">Ghidra, IDA · Ongoing</p>
         <p>Static analysis on the side: locating functions of interest, recovering
-           structure, and following pointer chains — including through deliberately
+           structure, and following pointer chains, including through deliberately
            obfuscated builds.</p>
       </article>
 
